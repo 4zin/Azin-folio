@@ -1,1 +1,22 @@
-<p>Este es el Header</p>
+---
+import Image from "astro/components/Image.astro";
+import HeaderButton from "@/components/HeaderButton.astro";
+---
+
+<header class="flex items-center justify-evenly">
+  <div>
+    <h1>Hi, I'm Azin</h1>
+    <Image
+      class={"rounded-full"}
+      src={"/profile.png"}
+      alt="Profile"
+      width={50}
+      height={50}
+    />
+  </div>
+  <nav class="flex gap-4">
+    <HeaderButton href="/#"> Home </HeaderButton>
+    <HeaderButton href="/#about"> About Me </HeaderButton>
+    <HeaderButton href="/#contact"> Contact </HeaderButton>
+  </nav>
+</header>
