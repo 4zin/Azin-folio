@@ -1,4 +1,6 @@
 ---
+import "@fontsource/press-start-2p";
+
 interface Props {
   title: string;
 }
@@ -10,7 +12,7 @@ const { title } = Astro.props;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
+    <meta name="description" content="Az1nDev's portfolio" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
@@ -21,13 +23,6 @@ const { title } = Astro.props;
   </body>
 </html>
 <style is:global>
-  @font-face {
-    font-family: "Press Start 2P";
-    src: url("./fonts/PressStart2P-Regular.ttf");
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
   :root {
     --accent: 136, 58, 234;
     --accent-light: 224, 204, 250;
@@ -40,7 +35,7 @@ const { title } = Astro.props;
     );
   }
   html {
-    /* font-family: system-ui, sans-serif; */
+    font-family: "Press Start 2P", system-ui, sans-serif;
     background-size: 224px;
   }
   html.dark {
