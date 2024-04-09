@@ -11,6 +11,9 @@ dependencies:
   '@astrojs/tailwind':
     specifier: ^5.1.0
     version: 5.1.0(astro@4.5.16)(tailwindcss@3.4.3)
+  '@fontsource/press-start-2p':
+    specifier: ^5.0.19
+    version: 5.0.19
   astro:
     specifier: ^4.5.16
     version: 4.5.16(typescript@5.4.4)
@@ -812,6 +815,10 @@ packages:
     requiresBuild: true
     dev: false
     optional: true
+
+  /@fontsource/press-start-2p@5.0.19:
+    resolution: {integrity: sha512-U4+p6wj4vAmQf6Hcq0MFE2Qvoz5489dr6OZbQ7Mz4jmAmis2uVLNkR2gO2iSkXdgUDAzTM00eUyWklFCevQsNQ==}
+    dev: false
 
   /@isaacs/cliui@8.0.2:
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
