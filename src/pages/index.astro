@@ -1,10 +1,72 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/Header.astro";
+import Nav from '@/components/Nav.astro';
+import Layout from '@/layouts/Layout.astro';
+import { navigationItems } from '@/data/navigation-items';
 ---
 
 <Layout title="Az1nDev">
-  <main>
-    <Header />
-  </main>
+  <section class="flex justify-center">
+    <h1 class="title font-secondary text-text text-5xl">
+      Hi! I'm <span class="text-secondary">Az1n</span>
+    </h1>
+  </section>
+  <section
+    class="flex min-h-[70dvh] justify-center drop-shadow-[0_0_1.5px_#000]"
+  >
+    <retro-menu
+      class="self-end"
+      selector=".options"
+      active-class="active"
+      enable-mouse-navigation="true"
+    >
+      <nav>
+        <ul class="flex flex-col items-center self-end">
+          {
+            navigationItems.map(({ url, text }) => (
+              <li>
+                <Nav url={url} text={text} />
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </retro-menu>
+  </section>
 </Layout>
+
+<style>
+  .title {
+    text-shadow:
+      -2px -2px 0 black,
+      2px -2px 0 black,
+      -2px 2px 0 black,
+      2px 2px 0 black,
+      -2px 0 0 black,
+      2px 0 0 black,
+      0 -2px 0 black,
+      0 2px 0 black;
+  }
+</style>
+
+<script>
+  import RetroMenu from '@/scripts/game-menu'; // Asegúrate de que la ruta sea correcta
+
+  let retroMenu: RetroMenu | null = null;
+
+  function initializeMenu() {
+    // El custom element se inicializa automáticamente cuando se conecta al DOM
+    retroMenu = document.querySelector('retro-menu') as RetroMenu;
+  }
+
+  function cleanupMenu() {
+    if (retroMenu) {
+      retroMenu.destroy();
+      retroMenu = null;
+    }
+  }
+
+  // Event listeners para Astro
+  document.addEventListener('DOMContentLoaded', initializeMenu);
+  document.addEventListener('astro:page-load', initializeMenu);
+  document.addEventListener('astro:before-swap', cleanupMenu);
+</script>
