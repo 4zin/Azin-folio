@@ -1,0 +1,33 @@
+---
+const { url, text } = Astro.props;
+---
+
+<a
+  href={url}
+  class="options text-secondary font-primary text-[18px] drop-shadow-[0_0_1.5px_#000]"
+  transition:name=`route-${text}`>{text}</a
+>
+
+<style>
+  .options.active {
+    color: var(--color-text);
+    filter: drop-shadow(0 0 1.5px #000);
+    font-size: 18px;
+  }
+
+  .options.selected {
+    animation: blink 0.25s infinite;
+  }
+
+  @keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.45;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+</style>
