@@ -1,0 +1,22 @@
+@import 'tailwindcss';
+@import '@fontsource/press-start-2p';
+@import '@fontsource/russo-one';
+
+@theme {
+  --font-primary: 'Press Start 2P', sans-serif;
+  --font-secondary: 'Russo One', sans-serif;
+
+  --bg-main: #434758;
+  --color-primary: #5b62cd;
+  --color-secondary: #b74e6b;
+  --color-tertiary: #97d5ff;
+  --color-text: #f2f1f6;
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
+body {
+  background-color: var(--bg-main);
+}
