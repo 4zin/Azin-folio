@@ -1,18 +1,17 @@
 ---
 import Nav from '@/components/Nav.astro';
 import Layout from '@/layouts/Layout.astro';
+import Cursor from '@/components/Cursor.astro';
 import { navigationItems } from '@/data/navigation-items';
+import { Image } from 'astro:assets';
+import az1ndev from '@/assets/images/portfolio-logo.webp';
 ---
 
 <Layout title="Az1nDev">
   <section class="flex justify-center">
-    <h1 class="title font-secondary text-text text-5xl">
-      Hi! I'm <span class="text-secondary">Az1n</span>
-    </h1>
+    <Image src={az1ndev} alt="Az1nDev" class={`w-2/5 h-11/12`} />
   </section>
-  <section
-    class="flex min-h-[70dvh] justify-center drop-shadow-[0_0_1.5px_#000]"
-  >
+  <section class="flex justify-center drop-shadow-[0_0_1.5px_#000]">
     <retro-menu
       class="self-end"
       selector=".options"
@@ -20,10 +19,11 @@ import { navigationItems } from '@/data/navigation-items';
       enable-mouse-navigation="true"
     >
       <nav>
-        <ul class="flex flex-col items-center self-end">
+        <ul class="relative flex flex-col items-center self-end">
           {
             navigationItems.map(({ url, text }) => (
-              <li>
+              <li class="options flex items-center gap-x-2">
+                <Cursor />
                 <Nav url={url} text={text} />
               </li>
             ))
@@ -35,37 +35,68 @@ import { navigationItems } from '@/data/navigation-items';
 </Layout>
 
 <style>
-  .title {
-    text-shadow:
-      -2px -2px 0 black,
-      2px -2px 0 black,
-      -2px 2px 0 black,
-      2px 2px 0 black,
-      -2px 0 0 black,
-      2px 0 0 black,
-      0 -2px 0 black,
-      0 2px 0 black;
+  .options :global(a) {
+    color: var(--color-secondary);
+  }
+
+  .options.active :global(a) {
+    color: var(--color-text);
+    filter: drop-shadow(0 0 1.5px #000);
+    font-size: 18px;
+  }
+
+  .options.selected {
+    animation: blink 0.25s infinite;
+  }
+
+  @keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.45;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 </style>
 
 <script>
-  import RetroMenu from '@/scripts/game-menu'; // Asegúrate de que la ruta sea correcta
+  import RetroMenu from '@/scripts/game-menu';
 
   let retroMenu: RetroMenu | null = null;
 
+  function toggleCursor() {
+    const options = document.querySelectorAll('.options');
+    options.forEach((option) => {
+      const cursor = option.querySelector('.retro-cursor');
+      if (cursor) {
+        if (option.classList.contains('active')) {
+          cursor.classList.remove('hidden');
+        } else {
+          cursor.classList.add('hidden');
+        }
+      }
+    });
+  }
+
   function initializeMenu() {
-    // El custom element se inicializa automáticamente cuando se conecta al DOM
     retroMenu = document.querySelector('retro-menu') as RetroMenu;
+    if (retroMenu) {
+      toggleCursor(); // Set initial state
+      retroMenu.addEventListener('active-changed', toggleCursor);
+    }
   }
 
   function cleanupMenu() {
     if (retroMenu) {
+      retroMenu.removeEventListener('active-changed', toggleCursor);
       retroMenu.destroy();
       retroMenu = null;
     }
   }
 
-  // Event listeners para Astro
   document.addEventListener('DOMContentLoaded', initializeMenu);
   document.addEventListener('astro:page-load', initializeMenu);
   document.addEventListener('astro:before-swap', cleanupMenu);
