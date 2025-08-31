@@ -19,4 +19,5 @@ html {
 
 body {
   background-color: var(--bg-main);
+  height: 100dvh;
 }

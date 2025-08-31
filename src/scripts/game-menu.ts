@@ -70,16 +70,19 @@ class RetroMenu extends HTMLElement {
   }
 
   private extractRoutesFromNavElements(): void {
-    const navElements =
-      this.querySelectorAll<HTMLAnchorElement>('a.options[href]');
+    const optionElements = this.querySelectorAll<HTMLElement>(
+      this.config.selector
+    );
     const routes: Record<string, string> = {};
 
-    navElements.forEach((element) => {
-      const text = element.textContent?.trim();
-      const href = element.getAttribute('href');
-
-      if (text && href) {
-        routes[text] = href;
+    optionElements.forEach((option) => {
+      const link = option.querySelector('a');
+      if (link) {
+        const text = link.textContent?.trim();
+        const href = link.getAttribute('href');
+        if (text && href) {
+          routes[text] = href;
+        }
       }
     });
 
@@ -233,17 +236,30 @@ class RetroMenu extends HTMLElement {
     if (currentOption) {
       currentOption.classList.add(this.config.activeClass);
     }
+
+    this.dispatchEvent(
+      new CustomEvent('active-changed', {
+        detail: {
+          index: this.currentIndex,
+          element: currentOption,
+        },
+        bubbles: true,
+      })
+    );
   }
 
   private selectOption(): void {
     const selectedOption = this.options[this.currentIndex] as HTMLElement;
     if (!selectedOption) return;
 
+    const link = selectedOption.querySelector('a');
+    const optionText: string = link?.textContent?.trim() || '';
+
+    if (!link || !optionText) return;
+
     selectedOption.classList.add('selected');
 
     this.playSelectSound();
-
-    const optionText: string = selectedOption.textContent?.trim() || '';
 
     const route = this.config.routes[optionText];
     if (route) {
