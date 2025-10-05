@@ -1,14 +1,85 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '@/layouts/Layout.astro';
+import Socials from '@/components/Socials.astro';
+
+import Avatar from '@/assets/images/avatar.webp';
+import Profile from '@/assets/images/profile.webp';
+import { socialMedia } from '@/data/socials';
 ---
 
 <Layout title="About Me">
-  <div class="flex justify-center">
-    <h1
-      class="font-primary text-text text-center text-[25px] drop-shadow-[0_0_1.5px_#000]"
-      transition:name="route-About Me"
+  <section class="flex h-[100dvh] items-center gap-x-4 px-4">
+    <div
+      class="border-secondary flex h-[75%] max-h-[500px] flex-col rounded-md border-4 bg-[#733446]"
     >
-      About Me
-    </h1>
-  </div>
+      <profile-image
+        class="group relative max-h-[200px] max-w-[200px] cursor-pointer overflow-hidden"
+      >
+        <Image
+          src={Avatar}
+          width={200}
+          height={200}
+          alt="Az1nDev"
+          class="avatar max-h-[200px] object-cover object-top transition-all duration-300 ease-in-out group-hover:opacity-0"
+        />
+
+        <Image
+          src={Profile}
+          width={200}
+          height={200}
+          alt="Az1nDev"
+          class="profile absolute inset-0 h-[200px] max-h-[200px] object-cover object-top opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100"
+        />
+      </profile-image>
+
+      <div class="flex flex-1 flex-col justify-center gap-y-8 px-5 py-3.5">
+        {
+          socialMedia.map((item) => (
+            <Socials name={item.name} url={item.url} icon={item.icon} />
+          ))
+        }
+      </div>
+    </div>
+    <div class="flex h-[75%] max-h-[500px] flex-1 flex-col gap-y-2.5">
+      <div class="font-primary flex gap-x-1.5">
+        <button
+          class="text-primary flex justify-center rounded-md border-2 border-black bg-[#e0e0e0] px-3 py-2"
+          >Q</button
+        >
+
+        <nav
+          class="border-secondary text-text flex flex-1 items-center gap-x-4 rounded-md border-4 bg-[#733446]"
+        >
+          <ul class="flex w-full justify-around">
+            <li>
+              <a href="">About</a>
+            </li>
+            <li>
+              <a href="">Projects</a>
+            </li>
+            <li>
+              <a href="">Skills</a>
+            </li>
+          </ul>
+        </nav>
+        <button
+          class="text-primary flex justify-center rounded-md border-2 border-black bg-[#e0e0e0] px-3 py-2"
+          >E</button
+        >
+      </div>
+
+      <div
+        class="border-secondary flex-1 overflow-y-auto rounded-md border-4 bg-[#733446] p-6"
+      >
+        <p class="text-white">
+          Content area - este espacio ocupa todo el resto disponible
+        </p>
+      </div>
+    </div>
+  </section>
 </Layout>
+
+<script>
+  import '@/scripts/about.ts';
+</script>

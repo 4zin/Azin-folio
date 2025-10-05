@@ -1,0 +1,13 @@
+---
+import Icons from './Icons.astro';
+
+const { name, url, icon } = Astro.props;
+---
+
+<a
+  href={url}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="font-primary text-text flex items-center gap-x-1 text-[14px]"
+  ><Icons name={icon} />{name}</a
+>
