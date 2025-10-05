@@ -13,10 +13,6 @@
   --color-text: #f2f1f6;
 }
 
-html {
-  scrollbar-gutter: stable;
-}
-
 body {
   background-color: var(--bg-main);
   height: 100dvh;
