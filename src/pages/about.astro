@@ -8,7 +8,7 @@ import Profile from '@/assets/images/profile.webp';
 import { socialMedia } from '@/data/socials';
 ---
 
-<Layout title="About Me">
+<Layout title="About">
   <section class="flex h-[100dvh] items-center gap-x-4 px-4">
     <div
       class="border-secondary flex h-[75%] max-h-[500px] flex-col rounded-md border-4 bg-[#733446]"
@@ -41,30 +41,32 @@ import { socialMedia } from '@/data/socials';
         }
       </div>
     </div>
-    <div class="flex h-[75%] max-h-[500px] flex-1 flex-col gap-y-2.5">
+    <about-component
+      class="flex h-[75%] max-h-[500px] flex-1 flex-col gap-y-2.5"
+    >
       <div class="font-primary flex gap-x-1.5">
         <button
-          class="text-primary flex justify-center rounded-md border-2 border-black bg-[#e0e0e0] px-3 py-2"
+          class="leftNav text-primary flex justify-center rounded-md border-2 border-black bg-[#e0e0e0] px-3 py-2"
           >Q</button
         >
 
         <nav
-          class="border-secondary text-text flex flex-1 items-center gap-x-4 rounded-md border-4 bg-[#733446]"
+          class="border-secondary text-text relative flex flex-1 items-center gap-x-4 rounded-md border-4 bg-[#733446]"
         >
-          <ul class="flex w-full justify-around">
-            <li>
-              <a href="">About</a>
+          <ul class="about-options relative flex w-full justify-around">
+            <li data-option="0" class="selected-option">
+              <button>About</button>
             </li>
-            <li>
-              <a href="">Projects</a>
+            <li data-option="1">
+              <button>Featured</button>
             </li>
-            <li>
-              <a href="">Skills</a>
+            <li data-option="2">
+              <button>Skills</button>
             </li>
           </ul>
         </nav>
         <button
-          class="text-primary flex justify-center rounded-md border-2 border-black bg-[#e0e0e0] px-3 py-2"
+          class="rightNav text-primary flex justify-center rounded-md border-2 border-black bg-[#e0e0e0] px-3 py-2"
           >E</button
         >
       </div>
@@ -76,9 +78,98 @@ import { socialMedia } from '@/data/socials';
           Content area - este espacio ocupa todo el resto disponible
         </p>
       </div>
-    </div>
+    </about-component>
   </section>
 </Layout>
+
+<style>
+  .about-options {
+    position: relative;
+  }
+
+  .about-options::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 80%;
+    background-color: var(--color-tertiary);
+    border-radius: 6px;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .about-options[data-selected='0']::before {
+    width: calc(100% / 3 - 90px);
+    left: 30px;
+  }
+
+  .about-options[data-selected='1']::before {
+    width: calc(100% / 3 - 100px);
+    left: calc(100% / 3 + 35px);
+  }
+
+  .about-options[data-selected='2']::before {
+    width: calc(100% / 3 - 110px);
+    left: calc(100% / 3 * 2 + 60px);
+  }
+
+  .about-options li {
+    position: relative;
+    z-index: 1;
+    transition: transform 0.2s ease;
+  }
+
+  .about-options li button {
+    position: relative;
+    transition: color 0.3s ease;
+    cursor: pointer;
+  }
+
+  .selected-option button {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .about-options li:not(.selected-option) button {
+    color: var(--color-text);
+  }
+
+  @keyframes pop {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .selected-option {
+    animation: pop 0.3s ease;
+  }
+
+  about-component .limited {
+    animation: shake 0.3s;
+  }
+
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-5px);
+    }
+    75% {
+      transform: translateX(5px);
+    }
+  }
+</style>
 
 <script>
   import '@/scripts/about.ts';
