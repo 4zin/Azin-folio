@@ -1,4 +1,5 @@
 import type { GameMenuType } from '@/types/game-menu';
+import { AudioManager } from '@/utils/AudioManager';
 import { navigate } from 'astro:transitions/client';
 
 class RetroMenu extends HTMLElement {
@@ -6,7 +7,7 @@ class RetroMenu extends HTMLElement {
   private currentIndex: number;
   private config: Required<GameMenuType>;
   private isInitialized: boolean = false;
-  private audioFiles: Map<string, HTMLAudioElement> = new Map();
+  private audioManager: AudioManager;
   private keydownHandler: (event: KeyboardEvent) => void;
 
   static get observedAttributes() {
@@ -15,6 +16,7 @@ class RetroMenu extends HTMLElement {
 
   constructor() {
     super();
+    this.audioManager = new AudioManager({ volume: 0.3 });
 
     this.config = {
       selector: '.options',
@@ -97,57 +99,19 @@ class RetroMenu extends HTMLElement {
     this.init();
   }
 
-  private setUpAudio(): void {
-    this.loadAudioFiles();
-  }
-
-  private async loadAudioFiles(): Promise<void> {
-    const audioSources = {
+  private async setUpAudio(): Promise<void> {
+    await this.audioManager.loadSounds({
       navigation: '../assets/sounds/option.mp3',
       select: '../assets/sounds/selected-option.mp3',
-    };
-
-    try {
-      for (const [key, path] of Object.entries(audioSources)) {
-        try {
-          const audioModule = await import(/* @vite-ignore */ path);
-          const audio = new Audio(audioModule.default);
-          audio.volume = 0.3;
-          audio.preload = 'auto';
-          this.audioFiles.set(key, audio);
-        } catch (error) {
-          console.error(`Error loading audio file for ${key}:`, error);
-        }
-      }
-    } catch (error) {
-      console.error('Error loading audio file:', error);
-    }
-  }
-
-  private playSound(soundKey: string): void {
-    try {
-      const audio = this.audioFiles.get(soundKey);
-
-      const isMuted = localStorage.getItem('isMuted') === 'true';
-      if (isMuted) return;
-
-      if (audio) {
-        audio.currentTime = 0;
-        audio.play().catch((error) => {
-          console.error(`Error playing the audio '${soundKey}':`, error);
-        });
-      }
-    } catch (error) {
-      console.error('Error playing navigation sound:', error);
-    }
+    });
   }
 
   private playNavigationSound(): void {
-    this.playSound('navigation');
+    this.audioManager.play('navigation');
   }
 
   private playSelectSound(): void {
-    this.playSound('select');
+    this.audioManager.play('select');
   }
 
   private init(): void {
@@ -280,30 +244,13 @@ class RetroMenu extends HTMLElement {
   }
 
   private playSoundAndNavigate(route: string): void {
-    const audio = this.audioFiles.get('select');
-
-    if (audio) {
-      audio.currentTime = 0;
-
-      const onEnded = () => {
-        audio.removeEventListener('ended', onEnded);
+    this.audioManager.playWithCallback(
+      'select',
+      () => {
         this.navigateTo(route);
-      };
-
-      audio.addEventListener('ended', onEnded);
-
-      audio.play().catch((error) => {
-        console.error(`Error playing the audio for navigation:`, error);
-        this.navigateTo(route);
-      });
-
-      setTimeout(() => {
-        audio.removeEventListener('ended', onEnded);
-        this.navigateTo(route);
-      }, 850);
-    } else {
-      this.navigateTo(route);
-    }
+      },
+      850
+    );
   }
 
   private navigateTo(route: string): void {
@@ -332,11 +279,7 @@ class RetroMenu extends HTMLElement {
       option.classList.remove('selected');
     });
 
-    this.audioFiles.forEach((audio) => {
-      audio.pause();
-      audio.currentTime = 0;
-    });
-    this.audioFiles.clear();
+    this.audioManager.destroy();
 
     this.isInitialized = false;
   }
