@@ -101,8 +101,8 @@ class RetroMenu extends HTMLElement {
 
   private async setUpAudio(): Promise<void> {
     await this.audioManager.loadSounds({
-      navigation: '../assets/sounds/option.mp3',
-      select: '../assets/sounds/selected-option.mp3',
+      navigation: '/sounds/option.mp3',
+      select: '/sounds/selected-option.mp3',
     });
   }
 
