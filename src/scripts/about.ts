@@ -54,7 +54,7 @@ class AboutComponent extends HTMLElement {
 
   async setupAudio() {
     await this.audioManager.loadSounds({
-      navigation: '../assets/sounds/option.mp3',
+      navigation: '/sounds/option.mp3',
     });
   }
 
