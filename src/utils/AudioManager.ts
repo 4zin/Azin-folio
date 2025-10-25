@@ -16,14 +16,15 @@ export class AudioManager {
 
   async loadSounds(sounds: Record<string, string>): Promise<void> {
     const loadPromises = Object.entries(sounds).map(([key, path]) => {
-      this.loadSound(key, path);
+      return this.loadSound(key, path);
     });
+
+    await Promise.all(loadPromises);
   }
 
   async loadSound(key: string, path: string): Promise<void> {
     try {
-      const audioModule = await import(path);
-      const audio = new Audio(audioModule.default);
+      const audio = new Audio(path);
       audio.volume = this.defaultConfig.volume;
       audio.preload = this.defaultConfig.preload;
 
