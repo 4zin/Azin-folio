@@ -1,0 +1,17 @@
+---
+import { featuredProjects } from '@/data/aboutSectionInfo';
+import { Image } from 'astro:assets';
+---
+
+<div data-content="1" class="hidden">
+  {
+    featuredProjects.map((project) => (
+      <div>
+        <div>
+          <h3>{project.title}</h3>
+          <p>{project.smallDescription}</p>
+        </div>
+      </div>
+    ))
+  }
+</div>
