@@ -2,6 +2,9 @@
 import { Image } from 'astro:assets';
 import Layout from '@/layouts/Layout.astro';
 import Socials from '@/components/Socials.astro';
+import AboutInfo from '@/components/AboutInfo.astro';
+import FeaturedInfo from '@/components/FeaturedInfo.astro';
+import Skills from '@/components/SkillsInfo.astro';
 
 import Avatar from '@/assets/images/avatar.webp';
 import Profile from '@/assets/images/profile.webp';
@@ -22,6 +25,7 @@ import { socialMedia } from '@/data/socials';
           height={200}
           alt="Az1nDev"
           class="avatar max-h-[200px] object-cover object-top transition-all duration-300 ease-in-out group-hover:opacity-0"
+          loading="eager"
         />
 
         <Image
@@ -30,6 +34,7 @@ import { socialMedia } from '@/data/socials';
           height={200}
           alt="Az1nDev"
           class="profile absolute inset-0 h-[200px] max-h-[200px] object-cover object-top opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100"
+          loading="eager"
         />
       </profile-image>
 
@@ -72,11 +77,12 @@ import { socialMedia } from '@/data/socials';
       </div>
 
       <div
-        class="border-secondary flex-1 overflow-y-auto rounded-md border-4 bg-[#733446] p-6"
+        id="aboutInfoContainer"
+        class="border-secondary max-h-full flex-1 overflow-y-auto rounded-md border-4 bg-[#733446] p-6"
       >
-        <p class="text-white">
-          Content area - este espacio ocupa todo el resto disponible
-        </p>
+        <AboutInfo />
+        <FeaturedInfo />
+        <Skills />
       </div>
     </about-component>
   </section>
@@ -135,6 +141,8 @@ import { socialMedia } from '@/data/socials';
 
   .about-options li:not(.selected-option) button {
     color: var(--color-text);
+    -webkit-text-stroke: 0.8px #000;
+    -webkit-text-fill-color: var(--color-text);
   }
 
   @keyframes pop {
