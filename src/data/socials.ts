@@ -3,12 +3,12 @@ import type { SocialsType } from '@/types/socialsType';
 export const socialMedia: SocialsType[] = [
   {
     name: 'Linkedin',
-    url: 'https://www.linkedin.com/in/az1ndev/',
+    url: 'https://www.linkedin.com/in/camilo-rodelo/',
     icon: 'linkedin',
   },
   {
     name: 'GitHub',
-    url: 'https://github.com/Az1nDev',
+    url: 'https://github.com/4zin',
     icon: 'github',
   },
   {
