@@ -97,6 +97,7 @@ class AboutComponent extends HTMLElement {
         this.options[this.currentOptionIndex].classList.add('selected-option');
         this.updateIndicator();
         this.audioManager.play('navigation');
+        this.updateContent();
       });
     });
   }
@@ -122,6 +123,7 @@ class AboutComponent extends HTMLElement {
     this.options[this.currentOptionIndex].classList.add('selected-option');
     this.updateIndicator();
     this.audioManager.play('navigation');
+    this.updateContent();
   }
 
   navigateRight() {
@@ -138,6 +140,24 @@ class AboutComponent extends HTMLElement {
     this.options[this.currentOptionIndex].classList.add('selected-option');
     this.updateIndicator();
     this.audioManager.play('navigation');
+    this.updateContent();
+  }
+
+  updateContent() {
+    const contentSections =
+      this.querySelectorAll<HTMLElement>('[data-content]');
+
+    contentSections.forEach((section) => {
+      const contentIndex = parseInt(
+        section.getAttribute('data-content') || '0'
+      );
+
+      if (contentIndex === this.currentOptionIndex) {
+        section.classList.remove('hidden');
+      } else {
+        section.classList.add('hidden');
+      }
+    });
   }
 
   disconnectedCallback() {
