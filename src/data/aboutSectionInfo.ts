@@ -1,24 +1,24 @@
+import type { ImageMetadata } from 'astro';
+
+import ropLogo from '../assets/svgs/rop-green-logo.svg';
+
 export type aboutProject = {
   title: string;
   smallDescription: string;
-  mediaSrc: string;
+  mediaSrc: ImageMetadata;
   link: string;
   stack: string[];
+  redirect: string;
 };
 
 export const featuredProjects: aboutProject[] = [
   {
     title: 'Rop ST Digitall',
-    smallDescription: 'Description of Project 1',
-    mediaSrc: '',
-    link: '',
-    stack: [''],
-  },
-  {
-    title: 'Project 2',
-    smallDescription: 'Description of Project 2',
-    mediaSrc: '',
-    link: '',
-    stack: [''],
+    smallDescription:
+      'Corporate website built with Next.js, TypeScript, and Tailwind. Backend in Strapi for contact form management.',
+    mediaSrc: ropLogo,
+    link: 'https://ropstdigitall.com/',
+    stack: ['React', 'TypeScript', 'Tailwind CSS', 'Strapi'],
+    redirect: '/projects/ropstdigitall',
   },
 ];

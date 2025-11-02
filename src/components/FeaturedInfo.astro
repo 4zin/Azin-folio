@@ -3,15 +3,82 @@ import { featuredProjects } from '@/data/aboutSectionInfo';
 import { Image } from 'astro:assets';
 ---
 
-<div data-content="1" class="hidden">
+<div data-content="1" class="hidden grid-cols-3">
   {
-    featuredProjects.map((project) => (
-      <div>
-        <div>
-          <h3>{project.title}</h3>
-          <p>{project.smallDescription}</p>
+    featuredProjects.map((project, index) => (
+      <div
+        class="featured-item flex flex-col items-center"
+        style={`--item-index: ${index}`}
+      >
+        <Image
+          src={project.mediaSrc}
+          alt={project.title}
+          width={110}
+          height={150}
+          loading="eager"
+        />
+        <div class="featured-info-container">
+          <a
+            class="featured-redirect font-primary text-tertiary hover:text-primary w-fit text-center"
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <h3>{project.title}</h3>
+          </a>
+          <p class="featured-description font-secondary text-text leading-relaxed font-medium tracking-wider">
+            {project.smallDescription}
+          </p>
+          <p class="font-secondary text-text">
+            Stack: {project.stack.join(', ')}
+          </p>
+          <a
+            class="font-secondary text-text hover:text-primary"
+            href={project.redirect}
+          >
+            More info
+          </a>
         </div>
       </div>
     ))
   }
 </div>
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+      filter: blur(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+  }
+
+  .featured-item {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  :global([data-content='1'].selected-content) .featured-item {
+    animation: fadeInUp 0.5s ease-out forwards;
+    animation-delay: calc(var(--item-index) * 0.15s);
+  }
+
+  .featured-info-container {
+    color: var(--color-text);
+    -webkit-text-stroke: 0.8px #000;
+  }
+
+  .featured-redirect {
+    -webkit-text-stroke: 0.8px #000;
+  }
+
+  .featured-description {
+    color: var(--color-text);
+    -webkit-text-stroke: 0.8px #000;
+  }
+</style>

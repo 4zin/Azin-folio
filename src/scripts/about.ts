@@ -153,8 +153,10 @@ class AboutComponent extends HTMLElement {
       );
 
       if (contentIndex === this.currentOptionIndex) {
+        section.classList.add('selected-content');
         section.classList.remove('hidden');
       } else {
+        section.classList.remove('selected-content');
         section.classList.add('hidden');
       }
     });
