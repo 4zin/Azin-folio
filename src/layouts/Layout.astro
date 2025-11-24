@@ -5,20 +5,48 @@ import Header from '../components/Header.astro';
 
 interface Props {
   title: string;
+  description?: string;
 }
 
-const { title } = Astro.props;
+const {
+  title,
+  description = 'Portfolio of Camilo Rodelo (Az1nDev) - Frontend Developer specialized in React, TypeScript, Astro and modern web development.',
+} = Astro.props;
+
 const homePage = Astro.url.pathname === '/';
+const siteUrl = 'https://azindev.vercel.app';
+const canonicalURL = new URL(Astro.url.pathname, siteUrl);
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Az1nDev's portfolio" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="author" content="Camilo Rodelo (Az1nDev)" />
+    <meta
+      name="keywords"
+      content="frontend developer, desarrollador frontend, React, TypeScript, JavaScript, Astro, portfolio, Camilo Rodelo, Az1nDev"
+    />
     <meta name="generator" content={Astro.generator} />
+
+    <link rel="canonical" href={canonicalURL} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="Az1nDev Portfolio" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <link rel="icon" type="image/ico" href="/folio-favicon.ico" />
+
     <title>{title}</title>
     <ClientRouter />
   </head>
