@@ -1,8 +1,13 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import ProjectsCards from '@/components/ProjectsCard.astro';
 ---
 
-<Layout 
+<Layout
   title="Projects - Az1nDev"
   description="Explore projects and work done by Az1nDev. Web applications, interactive sites and innovative frontend solutions."
-/>
+>
+  <section class="grid grid-cols-3 gap-3.5 px-12">
+    <ProjectsCards />
+  </section>
+</Layout>
