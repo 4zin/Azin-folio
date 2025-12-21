@@ -1,26 +1,32 @@
-<header class="absolute right-0 flex justify-end pt-4 pr-5">
-  <div>
-    <button
-      class="bg-secondary border-text shadow-inset cursor-pointer rounded-lg border-2 p-0.5 focus-visible:outline-none"
-      id="mute"
-      data-muted="false"
+<header
+  class={`absolute top-5 right-5 flex w-[95%] items-center ${Astro.url.pathname === '/' ? 'justify-end' : 'justify-between'}`}
+>
+  <a
+    href="/"
+    class={`${Astro.url.pathname === '/' ? 'hidden' : ''} font-primary text-text`}
+  >
+    Home
+  </a>
+  <button
+    class="bg-secondary border-text shadow-inset cursor-pointer rounded-lg border-2 p-0.5 focus-visible:outline-none"
+    id="mute"
+    data-muted="false"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="sound-icon"
+      width="25"
+      height="22"
+      fill="none"
+      ><path
+        stroke="#000"
+        d="M7.5 12.5V6m0 6.5v.5m0-.5h-3m0 0H4m.5 0v2m0 0v.5m0-.5h-2m-.5 0h.5m0 0v2m0 .5v-.5m0 0h2m.5 0h-.5m0 0v2m0 .5v-.5m0 0h3m.5 0h-.5m0 0v-2m0 0V16m0 .5h2m.5 0h-.5m0 0V6M17.5 12.5V6m0 6.5v.5m0-.5h-3m0 0H14m.5 0v2m0 0v.5m0-.5h-2m-.5 0h.5m0 0v2m0 .5v-.5m0 0h2m.5 0h-.5m0 0v2m0 .5v-.5m0 0h3m.5 0h-.5m0 0v-2m0 0V16m0 .5h2m.5 0h-.5m0 0V6M10 6.5h7M7.5 6V2h12m.5 0h-.5m0 0v4"
+      ></path><path
+        stroke="#000"
+        d="M8.5 16v-.5m0 0v-13h10m-10 13h-3m-2.5 0h2.5m0 0v-2m0-.5v.5m0 0h2m.5 0h-.5m0 0v1m0 .5v-.5m0 0h-1m-.5 0h.5m0 0v3m0 .5v-.5m0 0h-1m0 0H5m.5 0V16M19 2.5h-.5m0 0v13m0 .5v-.5m0 0h-2m-3.5 0h3.5m0 0v2m0 .5v-.5m0 0h-1m0 0H15m.5 0v-4m0 0V13m0 .5h2m.5 0h-.5m0 0v1m0 .5v-.5m0 0H16m-7-11h9m-9 1h9m-9 1h9"
+      ></path></svg
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="sound-icon"
-        width="25"
-        height="22"
-        fill="none"
-        ><path
-          stroke="#000"
-          d="M7.5 12.5V6m0 6.5v.5m0-.5h-3m0 0H4m.5 0v2m0 0v.5m0-.5h-2m-.5 0h.5m0 0v2m0 .5v-.5m0 0h2m.5 0h-.5m0 0v2m0 .5v-.5m0 0h3m.5 0h-.5m0 0v-2m0 0V16m0 .5h2m.5 0h-.5m0 0V6M17.5 12.5V6m0 6.5v.5m0-.5h-3m0 0H14m.5 0v2m0 0v.5m0-.5h-2m-.5 0h.5m0 0v2m0 .5v-.5m0 0h2m.5 0h-.5m0 0v2m0 .5v-.5m0 0h3m.5 0h-.5m0 0v-2m0 0V16m0 .5h2m.5 0h-.5m0 0V6M10 6.5h7M7.5 6V2h12m.5 0h-.5m0 0v4"
-        ></path><path
-          stroke="#000"
-          d="M8.5 16v-.5m0 0v-13h10m-10 13h-3m-2.5 0h2.5m0 0v-2m0-.5v.5m0 0h2m.5 0h-.5m0 0v1m0 .5v-.5m0 0h-1m-.5 0h.5m0 0v3m0 .5v-.5m0 0h-1m0 0H5m.5 0V16M19 2.5h-.5m0 0v13m0 .5v-.5m0 0h-2m-3.5 0h3.5m0 0v2m0 .5v-.5m0 0h-1m0 0H15m.5 0v-4m0 0V13m0 .5h2m.5 0h-.5m0 0v1m0 .5v-.5m0 0H16m-7-11h9m-9 1h9m-9 1h9"
-        ></path></svg
-      ></button
-    >
-  </div>
+  </button>
 </header>
 
 <style>
