@@ -1,23 +1,24 @@
 ---
-import { featuredProjects } from '@/data/aboutSectionInfo';
+import { aboutSmallDetails } from '@/data/projects';
 import { Image } from 'astro:assets';
 ---
 
 <div data-content="1" class="hidden grid-cols-3">
   {
-    featuredProjects.map((project, index) => (
+    aboutSmallDetails.map((project, index) => (
       <div
-        class="featured-item flex flex-col items-center"
+        class="featured-item flex flex-col items-center gap-y-5"
         style={`--item-index: ${index}`}
       >
         <Image
-          src={project.mediaSrc}
+          src={project.projectLogo}
           alt={project.title}
           width={110}
           height={150}
           loading="eager"
+          class="h-[30%] object-contain"
         />
-        <div class="featured-info-container">
+        <div class="featured-info-container flex flex-col gap-y-2.5">
           <a
             class="featured-redirect font-primary text-tertiary hover:text-primary w-fit text-center"
             href={project.link}
@@ -34,7 +35,7 @@ import { Image } from 'astro:assets';
           </p>
           <a
             class="font-secondary text-text hover:text-primary"
-            href={project.redirect}
+            href={`projects#${project.redirect}`}
           >
             More info
           </a>

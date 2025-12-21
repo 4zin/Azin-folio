@@ -7,12 +7,17 @@ import { Image } from 'astro:assets';
 import az1ndev from '@/assets/images/portfolio-logo.webp';
 ---
 
-<Layout 
+<Layout
   title="Az1nDev - Frontend Developer Portfolio"
   description="Welcome to Camilo Rodelo's (Az1nDev) portfolio - Frontend Developer passionate about creating unique web experiences with retro-gaming design and modern technologies."
 >
   <section class="flex justify-center">
-    <Image src={az1ndev} alt="Az1nDev" class={`w-2/5 h-11/12`} />
+    <Image
+      src={az1ndev}
+      alt="Az1nDev"
+      class={`w-2/5 h-11/12`}
+      loading={'eager'}
+    />
   </section>
   <section class="flex justify-center drop-shadow-[0_0_1.5px_#000]">
     <retro-menu

@@ -1,3 +1,76 @@
-<div data-content="2" class="hidden">
-  <p>Skills</p>
+---
+import jsIcon from '@/assets/images/js-icon.webp';
+import tsIcon from '@/assets/images/ts-icon.webp';
+import htmlIcon from '@/assets/images/html-icon.webp';
+import cssIcon from '@/assets/images/css-icon.webp';
+import nextIcon from '@/assets/images/next-icon.webp';
+import astroIcon from '@/assets/images/astro-icon.webp';
+import postgreIcon from '@/assets/images/postgre-icon.webp';
+import liquidIcon from '@/assets/images/liquid-icon.webp';
+import nestIcon from '@/assets/images/nest-icon.webp';
+import reactIcon from '@/assets/images/react-icon.webp';
+
+import Image from 'astro/components/Image.astro';
+
+type Skill = {
+  name: string;
+  icon: ImageMetadata;
+};
+
+const skills: Skill[] = [
+  {
+    name: 'JavaScript',
+    icon: jsIcon,
+  },
+  {
+    name: 'TypeScript',
+    icon: tsIcon,
+  },
+  {
+    name: 'HTML',
+    icon: htmlIcon,
+  },
+  {
+    name: 'CSS',
+    icon: cssIcon,
+  },
+  {
+    name: 'Next.js',
+    icon: nextIcon,
+  },
+  {
+    name: 'Astro',
+    icon: astroIcon,
+  },
+  {
+    name: 'PostgreSQL',
+    icon: postgreIcon,
+  },
+  {
+    name: 'Liquid',
+    icon: liquidIcon,
+  },
+  {
+    name: 'Nest.js',
+    icon: nestIcon,
+  },
+  {
+    name: 'React',
+    icon: reactIcon,
+  },
+];
+---
+
+<div data-content="2" class="hidden grid-cols-5 gap-5">
+  {
+    skills.map((skill) => (
+      <div class="bg-text/15 border-text/50 flex flex-col justify-center border backdrop-blur-lg">
+        <Image
+          src={skill.icon}
+          alt={`${skill.name} icon`}
+          class="self-center"
+        />
+      </div>
+    ))
+  }
 </div>
