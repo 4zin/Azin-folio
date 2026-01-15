@@ -1,7 +1,9 @@
 import type { smallDetails, Project } from '@/types/projectsTypes';
 
-import ropLogo from '../assets/svgs/rop-green-logo.svg';
-import klogsLogo from '../assets/images/klogs-logo.webp';
+import ropLogo from '@/assets/svgs/rop-green-logo.svg';
+import klogsLogo from '@/assets/images/klogs-logo.webp';
+import bacchanalLogo from '@/assets/images/bacchanal-icon.webp';
+import vionicLogo from '@/assets/images/vionic-big.avif';
 
 export const aboutSmallDetails: smallDetails[] = [
   {
@@ -44,6 +46,28 @@ export const projects: Project[] = [
     techStack: ['Liquid', 'Shopify', 'JavaScript'],
     link: 'https://klogsfootwear.com/',
     year: '2024',
+    role: 'Frontend Developer',
+  },
+  {
+    projectLogo: bacchanalLogo,
+    title: 'El Bacchanal',
+    id: 'bacchanal',
+    description:
+      'Corporate website built with Astro, focused on performance and SEO optimization. Static-first architecture to ensure fast load times and improved search engine visibility.',
+    techStack: ['Typescript', 'Astro', 'Tailwind', 'CSS'],
+    link: 'https://elbacchanal.com/',
+    year: '2025',
+    role: 'Frontend Developer',
+  },
+  {
+    projectLogo: vionicLogo,
+    title: 'Vionic Shoes',
+    id: 'vionic',
+    description:
+      'Advanced Shopify implementation built under complex client requirements. Developed a custom API using Cloudflare Workers to power a dynamic frontend carousel, along with a dedicated microservice for blog management outside Shopify’s native system.',
+    techStack: ['Liquid', 'Shopify', 'Javascript', 'Cloudflare Workers'],
+    link: 'https://vionicshoes.com.au/',
+    year: '2025',
     role: 'Frontend Developer',
   },
 ];
