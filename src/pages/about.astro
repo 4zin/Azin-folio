@@ -11,7 +11,7 @@ import Profile from '@/assets/images/profile.webp';
 import { socialMedia } from '@/data/socials';
 ---
 
-<Layout 
+<Layout
   title="About Me - Az1nDev"
   description="Learn more about Camilo Rodelo (Az1nDev), Frontend Developer with experience in modern web application development, technical skills and featured projects."
 >
@@ -63,13 +63,13 @@ import { socialMedia } from '@/data/socials';
         >
           <ul class="about-options relative flex w-full justify-around">
             <li data-option="0" class="selected-option">
-              <button>About</button>
+              <button>Skills</button>
             </li>
             <li data-option="1">
               <button>Featured</button>
             </li>
             <li data-option="2">
-              <button>Skills</button>
+              <button>About</button>
             </li>
           </ul>
         </nav>
@@ -83,9 +83,9 @@ import { socialMedia } from '@/data/socials';
         id="aboutInfoContainer"
         class="border-secondary max-h-full flex-1 overflow-y-auto rounded-md border-4 bg-[#733446] p-6"
       >
-        <AboutInfo />
-        <FeaturedInfo />
         <Skills />
+        <FeaturedInfo />
+        <AboutInfo />
       </div>
     </about-component>
   </section>
