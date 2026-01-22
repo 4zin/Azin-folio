@@ -12,7 +12,7 @@ const { project } = Astro.props;
 <dialog
   id={`dialog-${project.id}`}
   closedby="any"
-  class="card-detail border-text flex items-center gap-x-5 rounded-md border bg-white/15 p-5"
+  class="card-detail border-text flex w-[90%] flex-col items-center gap-x-5 rounded-md border bg-white/15 p-5 lg:w-auto lg:flex-row"
 >
   <button
     commandfor={`dialog-${project.id}`}

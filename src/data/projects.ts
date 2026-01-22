@@ -4,6 +4,8 @@ import ropLogo from '@/assets/svgs/rop-green-logo.svg';
 import klogsLogo from '@/assets/images/klogs-logo.webp';
 import bacchanalLogo from '@/assets/images/bacchanal-icon.webp';
 import vionicLogo from '@/assets/images/vionic-big.avif';
+import riekerLogo from '@/assets/images/rieker-logo.png';
+import remonteLogo from '@/assets/images/remonte-logo.png';
 
 export const aboutSmallDetails: smallDetails[] = [
   {
@@ -68,6 +70,26 @@ export const projects: Project[] = [
     techStack: ['Liquid', 'Shopify', 'Javascript', 'Cloudflare Workers'],
     link: 'https://vionicshoes.com.au/',
     year: '2025',
+    role: 'Frontend Developer',
+  },
+  {
+    projectLogo: riekerLogo,
+    title: 'Rieker Footwear',
+    id: 'rieker',
+    description:
+      'Shopify store where frontend contributions focused on creating and extending custom sections using Liquid, adapting the existing theme to meet new content and layout requirements.',
+    techStack: ['Liquid', 'Shopify', 'Javascript'],
+    link: 'https://rieker.us/',
+    role: 'Frontend Developer',
+  },
+  {
+    projectLogo: remonteLogo,
+    title: 'Remonte Shoes',
+    id: 'remonte',
+    description:
+      'Shopify store where frontend contributions focused on creating and extending custom sections using Liquid, adapting the existing theme to meet new content and layout requirements.',
+    techStack: ['Liquid', 'Shopify', 'Javascript'],
+    link: 'https://remonte.us/',
     role: 'Frontend Developer',
   },
 ];

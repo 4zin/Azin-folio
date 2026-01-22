@@ -15,7 +15,9 @@ import CardDetail from '@/components/CardDetail.astro';
       <Image
         src={project.projectLogo}
         alt={project.title}
-        class={`h-[85px] w-[85px] self-center object-contain`}
+        width={200}
+        height={200}
+        class={`h-[85px] w-[100px] self-center object-contain`}
         loading={'eager'}
       />
       <div class="resume font-secondary">
@@ -23,7 +25,7 @@ import CardDetail from '@/components/CardDetail.astro';
         {project.techStack && (
           <p class="techStack">Techs: {project.techStack.join(', ')}</p>
         )}
-        <p>Year: {project.year}</p>
+        {project.year && <p>Year: {project.year}</p>}
         <p>Role: {project.role}</p>
       </div>
       <button commandfor={`dialog-${project.id}`} command="show-modal" aria-label="View details" class="absolute backdrop-blur-[15px] shadow-[0_0_5px_0px_rgba(0,0,0,0.5)] group-hover:scale-[1.15] transition-all duration-200 ease-in-out right-[5%] bottom-[7%] cursor-pointer rounded-[50%] outline outline-text">

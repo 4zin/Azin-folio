@@ -15,5 +15,6 @@
 
 body {
   background-color: var(--bg-main);
+  min-height: 100dvh;
   height: 100dvh;
 }

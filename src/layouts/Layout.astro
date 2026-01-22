@@ -53,7 +53,7 @@ const canonicalURL = new URL(Astro.url.pathname, siteUrl);
   <body>
     <Header />
     <main
-      class=`flex h-full flex-col justify-around ${homePage ? "bg-[url('../assets/images/pixel-bg.webp')] bg-cover bg-center bg-no-repeat" : ''}`
+      class=`flex h-full mb-14  flex-col justify-around lg:mb-0 ${homePage ? "bg-[url('../assets/images/pixel-bg.webp')] bg-cover bg-center bg-no-repeat" : ''}`
     >
       <slot />
     </main>

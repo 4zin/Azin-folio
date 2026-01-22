@@ -14,6 +14,6 @@ export type Project = {
   description?: string;
   techStack?: string[];
   link: string;
-  year: string;
+  year?: string;
   role: string;
 };
