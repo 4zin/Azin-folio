@@ -1,37 +1,48 @@
 ---
 import Nav from '@/components/Nav.astro';
 import Layout from '@/layouts/Layout.astro';
-import Cursor from '@/components/Cursor.astro';
 import { navigationItems } from '@/data/navigation-items';
+import complementBg from '@/assets/images/complement-bg.webp';
 import { Image } from 'astro:assets';
-import az1ndev from '@/assets/images/portfolio-logo.webp';
 ---
 
 <Layout
   title="Az1nDev - Frontend Developer Portfolio"
   description="Welcome to Camilo Rodelo's (Az1nDev) portfolio - Frontend Developer passionate about creating unique web experiences with retro-gaming design and modern technologies."
 >
-  <section class="flex justify-center">
+  <section class="relative flex justify-center">
+    <h1
+      class="font-primary text-primary 3xl:text-[32px] flex flex-col items-center text-[16px] uppercase xl:text-[20px]"
+    >
+      <span class="leading-[100%]">Frontend Developer</span>
+      <span
+        class="font-title font-regular 3xl:text-[150px] 4xl:text-[200px] text-[84px] leading-[100%] font-extrabold tracking-normal text-[#32292A] xl:text-[110px]"
+        >Az1n</span
+      >
+    </h1>
     <Image
-      src={az1ndev}
-      alt="Az1nDev"
-      class={`w-2/5 h-11/12`}
-      loading={'eager'}
+      src={complementBg}
+      alt="Complement Background"
+      loading="eager"
+      class="3xl:top-[120px] absolute top-[150px] left-0 w-full object-cover md:top-[25px] lg:top-[10px] xl:top-[65px]"
     />
   </section>
-  <section class="flex justify-center drop-shadow-[0_0_1.5px_#000]">
+  <section
+    class="flex h-screen max-h-[50dvh] justify-center bg-[url('../assets/images/new-bg.webp')] bg-cover bg-center bg-no-repeat lg:max-h-[69dvh] lg:pb-[2.125rem] 2xl:bg-contain"
+  >
     <retro-menu
-      class="self-end"
+      class="3xl:top-[50px] relative top-[110px] self-end lg:top-[90px] xl:top-[95px]"
       selector=".options"
       active-class="active"
       enable-mouse-navigation="true"
     >
       <nav>
-        <ul class="relative flex flex-col items-center self-end">
+        <ul
+          class="flex flex-col items-stretch gap-y-2 self-end lg:flex-row lg:items-center lg:gap-x-[19px]"
+        >
           {
             navigationItems.map(({ url, text }) => (
               <li class="options flex items-center gap-x-2">
-                <Cursor />
                 <Nav url={url} text={text} />
               </li>
             ))
@@ -44,13 +55,21 @@ import az1ndev from '@/assets/images/portfolio-logo.webp';
 
 <style>
   .options :global(a) {
-    color: var(--color-secondary);
+    color: #32292a;
   }
 
   .options.active :global(a) {
     color: var(--color-text);
-    filter: drop-shadow(0 0 1.5px #000);
-    font-size: 18px;
+    font-size: 12px;
+    background-color: var(--color-secondary);
+
+    @media screen and (width >= 1024px) {
+      font-size: 16px;
+    }
+
+    @media screen and (width >= 1280px) {
+      font-size: 18px;
+    }
   }
 
   .options.selected {
@@ -92,7 +111,7 @@ import az1ndev from '@/assets/images/portfolio-logo.webp';
   function initializeMenu() {
     retroMenu = document.querySelector('retro-menu') as RetroMenu;
     if (retroMenu) {
-      toggleCursor(); // Set initial state
+      toggleCursor();
       retroMenu.addEventListener('active-changed', toggleCursor);
     }
   }

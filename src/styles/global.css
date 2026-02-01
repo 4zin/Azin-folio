@@ -1,16 +1,20 @@
 @import 'tailwindcss';
 @import '@fontsource/press-start-2p';
-@import '@fontsource/russo-one';
+@import '@fontsource/vt323';
+@import '@fontsource-variable/nunito-sans';
 
 @theme {
   --font-primary: 'Press Start 2P', sans-serif;
-  --font-secondary: 'Russo One', sans-serif;
+  --font-secondary: 'VT323', sans-serif;
+  --font-title: 'Nunito Sans', sans-serif;
 
-  --bg-main: #434758;
-  --color-primary: #5b62cd;
-  --color-secondary: #b74e6b;
-  --color-tertiary: #97d5ff;
-  --color-text: #f2f1f6;
+  --bg-main: #f1d8bf;
+  --color-primary: #fa6012;
+  --color-secondary: #e7641d;
+  --color-text: #000000;
+
+  --breakpoint-3xl: 100rem;
+  --breakpoint-4xl: 112.5rem;
 }
 
 body {
