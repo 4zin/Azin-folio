@@ -146,12 +146,12 @@ class RetroMenu extends HTMLElement {
     const key: string = event.key.toLowerCase();
 
     switch (key) {
-      case 'left':
+      case 'arrowleft':
       case 'a':
         event.preventDefault();
         this.moveLeft();
         break;
-      case 'arrowup':
+      case 'arrowright':
       case 'd':
         event.preventDefault();
         this.moveRight();
