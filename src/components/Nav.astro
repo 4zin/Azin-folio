@@ -6,7 +6,7 @@ const { url, text } = Astro.props;
 
 <a
   href={url}
-  class="outside font-primary w-full text-[12px] uppercase lg:text-[16px] xl:text-[18px]"
+  class="outside font-primary w-full text-[clamp(0.75rem,1.2vw,1.125rem)] uppercase"
   transition:name=`route-${text}`
 >
   <span class="inside relative flex items-center justify-center"
@@ -71,7 +71,7 @@ const { url, text } = Astro.props;
   .inside {
     border: 1px solid #2e2626;
     text-transform: uppercase;
-    padding: 5px 20px;
+    padding: 5px 30px;
 
     @media screen and (width => 1024px) {
       padding: 5px 30px;
