@@ -22,10 +22,12 @@ import { Image } from 'astro:assets';
       <h1
         class="font-primary text-primary flex flex-col items-center pt-2 text-[clamp(0.75rem,1.2vw,2rem)] uppercase lg:pt-4"
       >
-        <span class="leading-[100%]">Frontend Developer</span>
+        <span class="leading-[100%]" transition:name="brand-tagline"
+          >Frontend Developer</span
+        >
         <span
           class="font-title text-[clamp(4.5rem,10.5vw,12.5rem)] leading-[100%] font-extrabold tracking-normal text-[#32292A]"
-          >Az1n</span
+          transition:name="brand-name">Az1n</span
         >
       </h1>
     </section>

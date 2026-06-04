@@ -2,84 +2,90 @@
 import { Image } from 'astro:assets';
 import { projects } from '@/data/projects';
 import CardDetail from '@/components/CardDetail.astro';
-
 ---
 
-{
-  projects.map((project) => (
-    <div
-      id={`${project.id}`}
-      data-card={`card-${project.id}`}
-      class="group relative flex cursor-pointer flex-col gap-y-2.5 rounded-lg border border-white/30 bg-white/15 p-5 shadow-lg backdrop-blur-md"
-    >
-      <Image
-        src={project.projectLogo}
-        alt={project.title}
-        width={200}
-        height={200}
-        class={`h-[85px] w-[100px] self-center object-contain`}
-        loading={'eager'}
-      />
-      <div class="resume">
-        <h2 class="card-title font-primary text-text">{project.title}</h2>
-        {project.techStack && (
-          <p class="techStack">Techs: {project.techStack.join(', ')}</p>
-        )}
-        {project.year && <p>Year: {project.year}</p>}
-        <p>Role: {project.role}</p>
+<div
+  class="grid grid-cols-1 gap-3.5 p-4 pb-8 md:grid-cols-2 lg:grid-cols-3 lg:p-8"
+>
+  {
+    projects.map((project) => (
+      <div
+        id={`${project.id}`}
+        data-card={`card-${project.id}`}
+        class="group border-text relative flex cursor-pointer flex-col gap-y-6 border p-5"
+      >
+        <div class="flex items-center justify-evenly">
+          <Image
+            src={project.projectLogo}
+            alt={project.title}
+            width={200}
+            height={200}
+            class="h-[85px] w-[100px] self-center object-contain"
+            loading={'eager'}
+          />
+          <h2 class="card-title font-primary text-text text-[11px] lg:text-[12px]">
+            {project.title}
+          </h2>
+        </div>
+
+        <div class="text-text">
+          {project.description && (
+            <p class="font-secondary line-clamp-2 text-[16px] leading-tight">
+              {project.description}
+            </p>
+          )}
+          {project.techStack && (
+            <p class="font-secondary text-[16px]">
+              Techs: {project.techStack.join(', ')}
+            </p>
+          )}
+          {project.year && (
+            <p class="font-secondary text-[16px]">Year: {project.year}</p>
+          )}
+          <p class="font-secondary text-[16px]">Role: {project.role}</p>
+        </div>
+
+        <button
+          commandfor={`dialog-${project.id}`}
+          command="show-modal"
+          aria-label="View details"
+          class="bg-secondary border-text absolute right-0 bottom-0 cursor-pointer border border-r-0 border-b-0"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+            class="transition-all duration-200 ease-in-out group-hover:scale-[1.15]"
+          >
+            <path
+              fill="none"
+              stroke="#32292a"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 5v14m-7-7h14"
+            />
+          </svg>
+        </button>
       </div>
-      <button commandfor={`dialog-${project.id}`} command="show-modal" aria-label="View details" class="absolute backdrop-blur-[15px] shadow-[0_0_5px_0px_rgba(0,0,0,0.5)] group-hover:scale-[1.15] transition-all duration-200 ease-in-out right-[5%] bottom-[7%] cursor-pointer rounded-[50%] outline outline-text">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ffffff" d="M4 9h5V4h6v5h5v6h-5v5H9v-5H4zm7 4v5h2v-5h5v-2h-5V6h-2v5H6v2z"/></svg>
-      </button>
-    </div>
-
-
-    <CardDetail project={project} />
-  ))
-}
-
-<style>
-  .card-title {
-    -webkit-text-stroke: 0.75px #000;
-    -webkit-text-fill-color: var(--color-secondary);
+    ))
   }
+</div>
 
-  .resume {
-    -webkit-text-stroke: 0.75px #000;
-    -webkit-text-fill-color: var(--color-text);
-  }
-
-  .group:hover .card-title {
-    -webkit-text-fill-color: var(--color-primary);
-  }
-
-  .card-detail[open] {
-    scale: 1;
-    transition: scale 0.3s ease;
-
-    @starting-style {
-      scale: 0;
-    }
-  }
-
-  .card-detail {
-    top: 50%;
-    left: 50%;
-    translate: -50% -50%;
-    transition: scale 0.3s ease, display 0.3s ease allow-discrete;
-    scale: 0;
-  }
-</style>
+{projects.map((project) => <CardDetail project={project} />)}
 
 <script>
   const clickedCards = document.querySelectorAll('[data-card]');
 
-  function openModalFromHash () {
-    const hash =  window.location.hash;
+  function openModalFromHash() {
+    const hash = window.location.hash;
 
     if (hash) {
       const projectId = hash.replace('#', '');
-      const dialog = document.getElementById(`dialog-${projectId}`) as HTMLDialogElement;
+      const dialog = document.getElementById(
+        `dialog-${projectId}`,
+      ) as HTMLDialogElement;
 
       if (dialog) {
         dialog.showModal();
@@ -92,24 +98,48 @@ import CardDetail from '@/components/CardDetail.astro';
   window.addEventListener('hashchange', openModalFromHash);
 
   clickedCards?.forEach((card) => {
-    const showModal = card.querySelector('button[commandfor]') as HTMLButtonElement;
+    const showModal = card.querySelector(
+      'button[commandfor]',
+    ) as HTMLButtonElement;
 
     card.addEventListener('click', (event) => {
       const target = event.target as HTMLElement;
       const projectId = card.id;
 
       if (target && target.tagName !== 'BUTTON') {
+        if (document.querySelector('.card-detail[open]')) return;
         window.history.pushState(null, '', `#${projectId}`);
         showModal?.click();
       }
-    })
-  })
+    });
+  });
 
-  const dialogs = document.querySelectorAll('.card-detail') as NodeListOf<HTMLDialogElement>;
+  const dialogs = document.querySelectorAll(
+    '.card-detail',
+  ) as NodeListOf<HTMLDialogElement>;
 
   dialogs.forEach((dialog) => {
+    // Close when the backdrop (area outside the dialog box) is clicked.
+    // Handling it here — instead of the native `closedby="any"` light dismiss —
+    // keeps the modal up while the event is dispatched, so the click never
+    // falls through to the card underneath and opens another project.
+    dialog.addEventListener('click', (event) => {
+      const rect = dialog.getBoundingClientRect();
+      const clickedInside =
+        event.clientX >= rect.left &&
+        event.clientX <= rect.right &&
+        event.clientY >= rect.top &&
+        event.clientY <= rect.bottom;
+
+      if (!clickedInside) dialog.close();
+    });
+
     dialog.addEventListener('close', () => {
-      window.history.pushState(null, '', window.location.pathname + window.location.search);
-    })
-  })
+      window.history.pushState(
+        null,
+        '',
+        window.location.pathname + window.location.search,
+      );
+    });
+  });
 </script>

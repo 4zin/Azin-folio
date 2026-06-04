@@ -23,3 +23,11 @@ body {
   min-height: 100dvh;
   height: 100dvh;
 }
+
+/* Brand logo morph between pages (View Transitions).
+   Scoped to the named groups so the default page crossfade is unaffected. */
+::view-transition-group(brand-name),
+::view-transition-group(brand-tagline) {
+  animation-duration: 0.45s;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}

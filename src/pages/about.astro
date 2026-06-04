@@ -21,18 +21,16 @@ import { socialMedia } from '@/data/socials';
     class="min-h-[100dvh] bg-[url('../assets/images/bg-alternative.webp')] bg-cover bg-center bg-no-repeat"
   >
     <section class="flex items-center justify-between px-4 pt-4">
-      <h1>
-        <a href="/" class="flex flex-col items-center">
-          <span
-            class="font-primary text-tertiary text-[10px] leading-none font-extrabold uppercase lg:text-[14px]"
-            >Frontend Developer</span
-          >
-          <span
-            class="font-title text-tertiary text-[clamp(3rem,12vw,5rem)] leading-none font-extrabold uppercase"
-            >Az1n</span
-          >
-        </a>
-      </h1>
+      <a href="/" class="flex flex-col items-center">
+        <span
+          class="font-primary text-tertiary text-[10px] leading-none font-extrabold uppercase lg:text-[14px]"
+          transition:name="brand-tagline">Frontend Developer</span
+        >
+        <span
+          class="font-title text-tertiary text-[clamp(3rem,12vw,5rem)] leading-none font-extrabold uppercase"
+          transition:name="brand-name">Az1n</span
+        >
+      </a>
       <MuteButton />
     </section>
 
