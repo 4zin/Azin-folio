@@ -1,18 +1,18 @@
 @import 'tailwindcss';
 @import '@fontsource/press-start-2p';
-@import '@fontsource/vt323';
+@import '@fontsource/share-tech-mono';
 @import '@fontsource-variable/nunito-sans';
 
 @theme {
   --font-primary: 'Press Start 2P', sans-serif;
-  --font-secondary: 'VT323', sans-serif;
+  --font-secondary: 'Share Tech Mono', monospace;
   --font-title: 'Nunito Sans', sans-serif;
 
   --bg-main: #f1d8bf;
   --color-primary: #fa6012;
   --color-secondary: #e7641d;
   --color-tertiary: #f1d8bf;
-  --color-text: #000000;
+  --color-text: #32292A;
 
   --breakpoint-3xl: 100rem;
   --breakpoint-4xl: 112.5rem;

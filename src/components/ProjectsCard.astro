@@ -20,7 +20,7 @@ import CardDetail from '@/components/CardDetail.astro';
         class={`h-[85px] w-[100px] self-center object-contain`}
         loading={'eager'}
       />
-      <div class="resume font-secondary">
+      <div class="resume">
         <h2 class="card-title font-primary text-text">{project.title}</h2>
         {project.techStack && (
           <p class="techStack">Techs: {project.techStack.join(', ')}</p>

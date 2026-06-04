@@ -37,7 +37,7 @@ import { socialMedia } from '@/data/socials';
     </section>
 
     <section
-      class="flex flex-col px-4 pt-4 pb-4 lg:mx-auto lg:mt-40 lg:h-[50dvh] lg:w-full lg:max-w-5xl lg:flex-row lg:items-stretch lg:gap-x-4 lg:pt-0 2xl:max-w-[80rem]"
+      class="3xl:h-[65dvh] flex flex-col px-4 pt-4 pb-4 lg:mx-auto lg:mt-40 lg:h-[70dvh] lg:w-full lg:max-w-[80%] lg:flex-row lg:items-stretch lg:gap-x-4 lg:pt-0"
     >
       <div
         class="profile-card bg-tertiary relative top-[50px] flex h-full min-h-[200px] gap-y-10 rounded-md px-3 pt-3 lg:top-0 lg:w-[280px] lg:shrink-0 lg:flex-col lg:items-center lg:px-6 lg:pt-8"
@@ -47,10 +47,10 @@ import { socialMedia } from '@/data/socials';
         >
           <Image
             src={Avatar}
-            width={200}
-            height={200}
+            width={430}
+            height={430}
             alt="Az1nDev"
-            class="avatar h-full w-full object-cover object-top transition-all duration-300 ease-in-out group-hover:opacity-0"
+            class="avatar h-full w-full object-cover object-top transition-all duration-300 ease-in-out group-hover:opacity-0 lg:h-[130%]"
             loading="eager"
           />
           <Image
@@ -110,27 +110,31 @@ import { socialMedia } from '@/data/socials';
         </div>
 
         <div
-          class="border-secondary relative max-h-[50dvh] min-h-0 flex-1 overflow-y-auto rounded-md border-4 bg-[#f1d8bf] p-4 lg:max-h-none"
+          class="border-secondary relative max-h-[60dvh] min-h-0 flex-1 items-center justify-center overflow-y-auto rounded-md border-4 bg-[#f1d8bf] p-4 md:p-8 lg:flex lg:max-h-none"
         >
           <span
-            class="font-primary pointer-events-none absolute top-1.5 left-1.5 text-[10px] opacity-40"
+            class="font-primary pointer-events-none absolute top-1.5 left-1.5 text-[10px] opacity-40 lg:top-3 lg:right-3 lg:text-[20px]"
             >✦</span
           >
           <span
-            class="font-primary pointer-events-none absolute top-1.5 right-1.5 text-[10px] opacity-40"
-            >✦</span
-          >
-          <span
-            class="font-primary pointer-events-none absolute bottom-1.5 left-1.5 text-[10px] opacity-40"
-            >✦</span
-          >
-          <span
-            class="font-primary pointer-events-none absolute right-1.5 bottom-1.5 text-[10px] opacity-40"
+            class="font-primary pointer-events-none absolute top-1.5 right-1.5 text-[10px] opacity-40 lg:top-3 lg:right-3 lg:text-[20px]"
             >✦</span
           >
           <Skills />
           <FeaturedInfo />
           <AboutInfo />
+          <div
+            class="mt-2 flex justify-between lg:absolute lg:right-1.5 lg:bottom-1.5 lg:left-1.5"
+          >
+            <span
+              class="font-primary pointer-events-none text-[10px] opacity-40 lg:text-[20px]"
+              >✦</span
+            >
+            <span
+              class="font-primary pointer-events-none text-[10px] opacity-40 lg:text-[20px]"
+              >✦</span
+            >
+          </div>
         </div>
       </about-component>
     </section>

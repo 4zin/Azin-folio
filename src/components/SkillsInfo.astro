@@ -37,14 +37,14 @@ const skills: Skill[] = [
 >
   {
     skills.map((skill) => (
-      <div class="border-text/60 flex flex-col items-center justify-center gap-y-1.5 border bg-white/20 p-3 backdrop-blur-sm lg:aspect-square lg:p-5">
+      <div class="border-text/60 flex flex-col items-center justify-center gap-y-6 border bg-white/20 p-3 backdrop-blur-sm lg:aspect-square lg:p-5">
         <Image
           src={skill.icon}
           alt={skill.name}
-          class="h-12 w-12 object-contain lg:h-16 lg:w-16"
+          class="3xl:h-[50%] 3xl:w-[50%] h-12 w-12 object-contain lg:h-11/12 lg:w-11/12"
           loading={'eager'}
         />
-        <span class="font-primary text-text text-center text-[7px] leading-tight">
+        <span class="font-primary text-text 3xl:text-[14px] text-center text-[7px] leading-tight">
           {skill.name}
         </span>
       </div>
