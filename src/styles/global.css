@@ -1,20 +1,33 @@
 @import 'tailwindcss';
 @import '@fontsource/press-start-2p';
-@import '@fontsource/russo-one';
+@import '@fontsource/share-tech-mono';
+@import '@fontsource-variable/nunito-sans';
 
 @theme {
   --font-primary: 'Press Start 2P', sans-serif;
-  --font-secondary: 'Russo One', sans-serif;
+  --font-secondary: 'Share Tech Mono', monospace;
+  --font-title: 'Nunito Sans', sans-serif;
 
-  --bg-main: #434758;
-  --color-primary: #5b62cd;
-  --color-secondary: #b74e6b;
-  --color-tertiary: #97d5ff;
-  --color-text: #f2f1f6;
+  --bg-main: #f1d8bf;
+  --color-primary: #fa6012;
+  --color-secondary: #e7641d;
+  --color-tertiary: #f1d8bf;
+  --color-text: #32292A;
+
+  --breakpoint-3xl: 100rem;
+  --breakpoint-4xl: 112.5rem;
 }
 
 body {
   background-color: var(--bg-main);
   min-height: 100dvh;
   height: 100dvh;
+}
+
+/* Brand logo morph between pages (View Transitions).
+   Scoped to the named groups so the default page crossfade is unaffected. */
+::view-transition-group(brand-name),
+::view-transition-group(brand-tagline) {
+  animation-duration: 0.45s;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
 }

@@ -3,40 +3,57 @@ import { aboutSmallDetails } from '@/data/projects';
 import { Image } from 'astro:assets';
 ---
 
-<div data-content="1" class="hidden grid-cols-3">
+<div data-content="1" class="hidden grid-cols-1 gap-6 md:grid-cols-2">
   {
     aboutSmallDetails.map((project, index) => (
       <div
-        class="featured-item flex flex-col items-center gap-y-5"
+        class="featured-item border-text flex h-full flex-col gap-y-5 border p-6"
         style={`--item-index: ${index}`}
       >
-        <Image
-          src={project.projectLogo}
-          alt={project.title}
-          width={110}
-          height={150}
-          loading="eager"
-          class="h-[30%] object-contain"
-        />
-        <div class="featured-info-container flex flex-col gap-y-2.5">
+        <div class="flex flex-col items-center justify-between gap-x-3 gap-y-5 md:flex-row lg:flex-1">
+          <Image
+            src={project.projectLogo}
+            alt={project.title}
+            width={130}
+            height={150}
+            loading="eager"
+            class="h-[60%] object-contain"
+          />
           <a
-            class="featured-redirect font-primary text-tertiary hover:text-primary w-fit text-center"
+            class="font-primary text-text w-fit text-[14px]"
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
           >
             <h3>{project.title}</h3>
           </a>
-          <p class="featured-description font-secondary text-text leading-relaxed font-medium tracking-wider">
-            {project.smallDescription}
-          </p>
-          <p class="font-secondary text-text">
-            Stack: {project.stack.join(', ')}
-          </p>
+        </div>
+
+        <div class="font-secondary flex flex-col gap-y-2.5 tracking-[0px] lg:flex-1 lg:justify-between lg:overflow-hidden">
+          <div class="flex flex-col gap-y-1.5">
+            <p class="text-text leading-[15px]">{project.smallDescription}</p>
+            <p class="text-text">
+              <strong>Stack:</strong> {project.stack.join(', ')}
+            </p>
+          </div>
           <a
-            class="font-secondary text-text hover:text-primary"
+            class="more-info-link text-primary text-[14px] uppercase md:text-[18px]"
             href={`projects#${project.redirect}`}
           >
+            <svg
+              class="retro-cursor"
+              viewBox="0 0 10 10"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                d="M0.5 5H7.5M7.5 5L5 2.5M7.5 5L5 7.5"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="square"
+              />
+            </svg>
             More info
           </a>
         </div>
@@ -59,6 +76,16 @@ import { Image } from 'astro:assets';
     }
   }
 
+  @keyframes retro-point {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(5px);
+    }
+  }
+
   .featured-item {
     opacity: 0;
     transform: translateY(30px);
@@ -69,17 +96,76 @@ import { Image } from 'astro:assets';
     animation-delay: calc(var(--item-index) * 0.15s);
   }
 
-  .featured-info-container {
-    color: var(--color-text);
-    -webkit-text-stroke: 0.8px #000;
+  .more-info-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    width: fit-content;
+    position: relative;
+    padding: 2px 6px 2px 2px;
+    isolation: isolate;
+    transition: color 0.1s steps(1, end);
   }
 
-  .featured-redirect {
-    -webkit-text-stroke: 0.8px #000;
+  /* Pixel fill — sweeps in from left in discrete steps */
+  .more-info-link::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--color-primary);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.3s steps(6, end);
+    z-index: -1;
   }
 
-  .featured-description {
-    color: var(--color-text);
-    -webkit-text-stroke: 0.8px #000;
+  /* Neon underline glow — fades in after fill completes */
+  .more-info-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--color-primary);
+    box-shadow: 0 0 8px 2px var(--color-primary);
+    opacity: 0;
+    transition: opacity 0.25s ease 0.28s;
+  }
+
+  .more-info-link:hover::before {
+    transform: scaleX(1);
+  }
+
+  .more-info-link:hover::after {
+    opacity: 1;
+  }
+
+  .more-info-link:hover,
+  .more-info-link:hover .retro-cursor {
+    color: #fff;
+  }
+
+  .retro-cursor {
+    display: inline-block;
+    flex-shrink: 0;
+    width: 10px;
+    height: 10px;
+    animation: retro-point 1.2s ease-in-out infinite;
+    color: var(--color-primary);
+    transition:
+      scale 0.2s ease,
+      color 0.1s steps(1, end);
+  }
+
+  @media (min-width: 768px) {
+    .retro-cursor {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .more-info-link:hover .retro-cursor {
+    scale: 1.3;
   }
 </style>

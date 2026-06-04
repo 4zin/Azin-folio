@@ -1,13 +1,44 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import ProjectsCards from '@/components/ProjectsCard.astro';
+import MuteButton from '@/components/MuteButton.astro';
 ---
 
 <Layout
   title="Projects - Az1nDev"
   description="Explore projects and work done by Az1nDev. Web applications, interactive sites and innovative frontend solutions."
+  hideHeader={true}
 >
-  <section class="grid gap-3.5 px-6 lg:grid-cols-3 lg:px-12">
-    <ProjectsCards />
-  </section>
+  <div
+    class="flex h-[100dvh] flex-col items-center bg-[url('../assets/images/bg-alternative.webp')] bg-cover bg-center bg-no-repeat lg:h-auto lg:min-h-[100dvh]"
+  >
+    <section class="flex w-full shrink-0 items-center justify-between px-4 pt-4">
+      <a href="/" class="flex flex-col items-center">
+        <span
+          class="font-primary text-tertiary text-[10px] leading-none font-extrabold uppercase lg:text-[14px]"
+          transition:name="brand-tagline">Frontend Developer</span
+        >
+        <span
+          class="font-title text-tertiary text-[clamp(3rem,12vw,5rem)] leading-none font-extrabold uppercase"
+          transition:name="brand-name">Az1n</span
+        >
+      </a>
+
+      <MuteButton />
+    </section>
+
+    <div class="flex min-h-0 w-[90%] flex-1 flex-col pb-4 pt-2 lg:flex-none lg:pb-8">
+      <h1
+        class="font-primary border-secondary text-tertiary ml-5 w-fit rounded border-4 bg-[#A54517] px-4 py-1.5 text-[10px] uppercase lg:text-[12px]"
+      >
+        Projects
+      </h1>
+
+      <section
+        class="bg-tertiary border-secondary min-h-0 flex-1 overflow-y-auto rounded-[10px] border-4 lg:flex-none lg:overflow-visible"
+      >
+        <ProjectsCards />
+      </section>
+    </div>
+  </div>
 </Layout>

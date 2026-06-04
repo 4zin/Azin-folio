@@ -18,58 +18,35 @@ type Skill = {
 };
 
 const skills: Skill[] = [
-  {
-    name: 'JavaScript',
-    icon: jsIcon,
-  },
-  {
-    name: 'TypeScript',
-    icon: tsIcon,
-  },
-  {
-    name: 'HTML',
-    icon: htmlIcon,
-  },
-  {
-    name: 'CSS',
-    icon: cssIcon,
-  },
-  {
-    name: 'Next.js',
-    icon: nextIcon,
-  },
-  {
-    name: 'Astro',
-    icon: astroIcon,
-  },
-  {
-    name: 'PostgreSQL',
-    icon: postgreIcon,
-  },
-  {
-    name: 'Liquid',
-    icon: liquidIcon,
-  },
-  {
-    name: 'Nest.js',
-    icon: nestIcon,
-  },
-  {
-    name: 'React',
-    icon: reactIcon,
-  },
+  { name: 'Javascript', icon: jsIcon },
+  { name: 'Typecript', icon: tsIcon },
+  { name: 'HTML5', icon: htmlIcon },
+  { name: 'CSS', icon: cssIcon },
+  { name: 'NextJs', icon: nextIcon },
+  { name: 'Astro', icon: astroIcon },
+  { name: 'Posgree SQL', icon: postgreIcon },
+  { name: 'Liquid', icon: liquidIcon },
+  { name: 'NestJs', icon: nestIcon },
+  { name: 'React JS', icon: reactIcon },
 ];
 ---
 
-<div data-content="0" class="active grid grid-cols-5 gap-5">
+<div
+  data-content="0"
+  class="active grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5 lg:gap-5"
+>
   {
     skills.map((skill) => (
-      <div class="bg-text/15 border-text/50 flex flex-col justify-center border backdrop-blur-lg">
+      <div class="border-text/60 flex flex-col items-center justify-center gap-y-6 border bg-white/20 p-3 backdrop-blur-sm lg:aspect-square lg:p-5">
         <Image
           src={skill.icon}
-          alt={`${skill.name} icon`}
-          class="self-center"
+          alt={skill.name}
+          class="3xl:h-[50%] 3xl:w-[50%] h-12 w-12 object-contain lg:h-11/12 lg:w-11/12"
+          loading={'eager'}
         />
+        <span class="font-primary text-text 3xl:text-[14px] text-center text-[7px] leading-tight">
+          {skill.name}
+        </span>
       </div>
     ))
   }

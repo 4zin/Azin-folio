@@ -146,15 +146,15 @@ class RetroMenu extends HTMLElement {
     const key: string = event.key.toLowerCase();
 
     switch (key) {
-      case 'arrowdown':
-      case 's':
+      case 'arrowleft':
+      case 'a':
         event.preventDefault();
-        this.moveDown();
+        this.moveLeft();
         break;
-      case 'arrowup':
-      case 'w':
+      case 'arrowright':
+      case 'd':
         event.preventDefault();
-        this.moveUp();
+        this.moveRight();
         break;
 
       case 'enter':
@@ -167,13 +167,13 @@ class RetroMenu extends HTMLElement {
     }
   }
 
-  private moveDown(): void {
+  private moveLeft(): void {
     this.currentIndex = (this.currentIndex + 1) % this.options.length;
     this.updateActiveOption();
     this.playNavigationSound();
   }
 
-  private moveUp(): void {
+  private moveRight(): void {
     this.currentIndex =
       (this.currentIndex - 1 + this.options.length) % this.options.length;
     this.updateActiveOption();

@@ -73,6 +73,7 @@ class AboutComponent extends HTMLElement {
     this.updateIndicator();
 
     document.addEventListener('keydown', (event) => {
+      if (window.innerWidth < 1024) return;
       const key = event.key.toLowerCase();
       if (key === 'q') {
         event.preventDefault();

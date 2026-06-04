@@ -1,56 +1,83 @@
 ---
 import Nav from '@/components/Nav.astro';
+import MuteButton from '@/components/MuteButton.astro';
 import Layout from '@/layouts/Layout.astro';
-import Cursor from '@/components/Cursor.astro';
 import { navigationItems } from '@/data/navigation-items';
+import complementBg from '@/assets/images/complement-bg.webp';
 import { Image } from 'astro:assets';
-import az1ndev from '@/assets/images/portfolio-logo.webp';
 ---
 
 <Layout
   title="Az1nDev - Frontend Developer Portfolio"
   description="Welcome to Camilo Rodelo's (Az1nDev) portfolio - Frontend Developer passionate about creating unique web experiences with retro-gaming design and modern technologies."
+  hideHeader={true}
 >
-  <section class="flex justify-center">
-    <Image
-      src={az1ndev}
-      alt="Az1nDev"
-      class={`w-2/5 h-11/12`}
-      loading={'eager'}
-    />
-  </section>
-  <section class="flex justify-center drop-shadow-[0_0_1.5px_#000]">
-    <retro-menu
-      class="self-end"
-      selector=".options"
-      active-class="active"
-      enable-mouse-navigation="true"
+  <div class="flex h-dvh flex-col">
+    <section
+      class="flex shrink-0 flex-col items-center px-4 py-3 lg:px-6 lg:py-4"
     >
-      <nav>
-        <ul class="relative flex flex-col items-center self-end">
-          {
-            navigationItems.map(({ url, text }) => (
-              <li class="options flex items-center gap-x-2">
-                <Cursor />
-                <Nav url={url} text={text} />
-              </li>
-            ))
-          }
-        </ul>
-      </nav>
-    </retro-menu>
-  </section>
+      <div class="flex w-full justify-end">
+        <MuteButton />
+      </div>
+      <h1
+        class="font-primary text-primary flex flex-col items-center pt-2 text-[clamp(0.75rem,1.2vw,2rem)] uppercase lg:pt-4"
+      >
+        <span class="leading-[100%]" transition:name="brand-tagline"
+          >Frontend Developer</span
+        >
+        <span
+          class="font-title text-[clamp(4.5rem,10.5vw,12.5rem)] leading-[100%] font-extrabold tracking-normal text-[#32292A]"
+          transition:name="brand-name">Az1n</span
+        >
+      </h1>
+    </section>
+
+    <section
+      class="relative min-h-[45dvh] flex-1 bg-[url('../assets/images/new-bg.webp')] bg-cover bg-center bg-no-repeat"
+    >
+      <Image
+        src={complementBg}
+        alt=""
+        loading="eager"
+        class="absolute bottom-28 h-full w-full object-cover object-top"
+      />
+    </section>
+
+    <!-- Section 3: navigation -->
+    <section class="flex shrink-0 justify-center py-4 lg:py-6">
+      <retro-menu
+        class="w-full max-w-lg"
+        selector=".options"
+        active-class="active"
+        enable-mouse-navigation="true"
+      >
+        <nav>
+          <ul
+            class="flex flex-col items-stretch gap-y-2 px-4 lg:flex-row lg:items-center lg:justify-center lg:gap-x-5 lg:px-0"
+          >
+            {
+              navigationItems.map(({ url, text }) => (
+                <li class="options flex items-center gap-x-2">
+                  <Nav url={url} text={text} />
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </retro-menu>
+    </section>
+  </div>
 </Layout>
 
 <style>
   .options :global(a) {
-    color: var(--color-secondary);
+    color: #32292a;
   }
 
   .options.active :global(a) {
     color: var(--color-text);
-    filter: drop-shadow(0 0 1.5px #000);
-    font-size: 18px;
+    font-size: clamp(0.75rem, 1.2vw, 1.125rem);
+    background-color: var(--color-secondary);
   }
 
   .options.selected {
@@ -92,7 +119,7 @@ import az1ndev from '@/assets/images/portfolio-logo.webp';
   function initializeMenu() {
     retroMenu = document.querySelector('retro-menu') as RetroMenu;
     if (retroMenu) {
-      toggleCursor(); // Set initial state
+      toggleCursor();
       retroMenu.addEventListener('active-changed', toggleCursor);
     }
   }

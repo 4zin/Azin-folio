@@ -1,7 +1,7 @@
 import type { smallDetails, Project } from '@/types/projectsTypes';
 
-import ropLogo from '@/assets/svgs/rop-green-logo.svg';
-import klogsLogo from '@/assets/images/klogs-logo.webp';
+import ropLogo from '@/assets/svgs/ropst-brown-logo.svg';
+import kodaLogo from '@/assets/svgs/koda-brown-logo.svg';
 import bacchanalLogo from '@/assets/images/bacchanal-icon.webp';
 import vionicLogo from '@/assets/images/vionic-big.avif';
 import riekerLogo from '@/assets/images/rieker-logo.png';
@@ -18,12 +18,12 @@ export const aboutSmallDetails: smallDetails[] = [
     redirect: 'ropstdigitall',
   },
   {
-    title: 'Klogs Footwear',
+    title: 'Koda Lightning',
     smallDescription: 'Implementation of a high-performance online store',
-    projectLogo: klogsLogo,
-    link: 'https://klogsfootwear.com/',
+    projectLogo: kodaLogo,
+    link: 'https://kodalighting.com/',
     stack: ['Liquid', 'Shopify', 'JavaScript'],
-    redirect: 'klogsfootwear',
+    redirect: 'kodalightning',
   },
 ];
 
@@ -40,14 +40,14 @@ export const projects: Project[] = [
     role: 'Frontend Developer',
   },
   {
-    projectLogo: klogsLogo,
-    title: 'Klogs Footwear',
-    id: 'klogsfootwear',
+    projectLogo: kodaLogo,
+    title: 'Koda Lightning',
+    id: 'kodalightning',
     description:
       'Implementation of a high-performance online store where personalization was the priority. Developed custom components specifically requested by the client, allowing full control over the brand aesthetic in Shopify.',
     techStack: ['Liquid', 'Shopify', 'JavaScript'],
-    link: 'https://klogsfootwear.com/',
-    year: '2024',
+    link: 'https://kodalighting.com/',
+    year: '2025',
     role: 'Frontend Developer',
   },
   {
