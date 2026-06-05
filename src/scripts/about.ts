@@ -36,8 +36,8 @@ class AboutComponent extends HTMLElement {
   private currentOptionIndex: number = 0;
   private options!: NodeListOf<HTMLLIElement>;
   private optionsList!: HTMLUListElement;
-  private leftButton!: HTMLButtonElement;
-  private rightButton!: HTMLButtonElement;
+  private leftButton!: HTMLElement;
+  private rightButton!: HTMLElement;
   private audioManager: AudioManager;
 
   constructor() {
@@ -59,8 +59,8 @@ class AboutComponent extends HTMLElement {
   }
 
   getButtons() {
-    this.leftButton = this.querySelector('.leftNav') as HTMLButtonElement;
-    this.rightButton = this.querySelector('.rightNav') as HTMLButtonElement;
+    this.leftButton = this.querySelector('.leftNav') as HTMLElement;
+    this.rightButton = this.querySelector('.rightNav') as HTMLElement;
   }
 
   optionsNav() {
@@ -108,6 +108,17 @@ class AboutComponent extends HTMLElement {
       'data-selected',
       this.currentOptionIndex.toString()
     );
+    this.updateTabsAria();
+  }
+
+  updateTabsAria() {
+    this.options.forEach((option, index) => {
+      const tab = option.querySelector('[role="tab"]');
+      tab?.setAttribute(
+        'aria-selected',
+        String(index === this.currentOptionIndex)
+      );
+    });
   }
 
   navigateLeft() {

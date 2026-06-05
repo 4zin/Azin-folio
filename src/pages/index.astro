@@ -5,13 +5,51 @@ import Layout from '@/layouts/Layout.astro';
 import { navigationItems } from '@/data/navigation-items';
 import complementBg from '@/assets/images/complement-bg.webp';
 import { Image } from 'astro:assets';
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Camilo Rodelo',
+  alternateName: 'Az1nDev',
+  url: 'https://azindev.vercel.app',
+  jobTitle: 'Frontend Developer',
+  knowsAbout: [
+    'React',
+    'TypeScript',
+    'Astro',
+    'Shopify',
+    'Next.js',
+    'Tailwind CSS',
+  ],
+  sameAs: [
+    'https://github.com/4zin',
+    'https://www.linkedin.com/in/camilo-rodelo/',
+  ],
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Az1nDev Portfolio',
+  url: 'https://azindev.vercel.app',
+};
 ---
 
 <Layout
-  title="Az1nDev - Frontend Developer Portfolio"
-  description="Welcome to Camilo Rodelo's (Az1nDev) portfolio - Frontend Developer passionate about creating unique web experiences with retro-gaming design and modern technologies."
+  title="Camilo Rodelo — Frontend Developer | React, TypeScript, Astro"
+  description="Frontend Developer building fast, accessible web experiences with React, TypeScript and Astro. Retro-gaming inspired portfolio of Camilo Rodelo (Az1nDev)."
   hideHeader={true}
 >
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(personSchema)}
+    slot="head"
+  />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(websiteSchema)}
+    slot="head"
+  />
   <div class="flex h-dvh flex-col">
     <section
       class="flex shrink-0 flex-col items-center px-4 py-3 lg:px-6 lg:py-4"

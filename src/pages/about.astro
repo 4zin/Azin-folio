@@ -10,13 +10,39 @@ import Skills from '@/components/SkillsInfo.astro';
 import Avatar from '@/assets/images/avatar.webp';
 import Profile from '@/assets/images/profile.webp';
 import { socialMedia } from '@/data/socials';
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Camilo Rodelo',
+  alternateName: 'Az1nDev',
+  url: 'https://azindev.vercel.app/about',
+  jobTitle: 'Frontend Developer',
+  knowsAbout: [
+    'React',
+    'TypeScript',
+    'Astro',
+    'Shopify',
+    'Next.js',
+    'Tailwind CSS',
+  ],
+  sameAs: [
+    'https://github.com/4zin',
+    'https://www.linkedin.com/in/camilo-rodelo/',
+  ],
+};
 ---
 
 <Layout
-  title="About Me - Az1nDev"
-  description="Learn more about Camilo Rodelo (Az1nDev), Frontend Developer with experience in modern web application development, technical skills and featured projects."
+  title="About Camilo Rodelo — Frontend Developer | Az1nDev"
+  description="Camilo Rodelo (Az1nDev) is a Frontend Developer shipping production sites with React, TypeScript, Astro and Shopify. Skills, featured work and background here."
   hideHeader={true}
 >
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(personSchema)}
+    slot="head"
+  />
   <div
     class="min-h-[100dvh] bg-[url('../assets/images/bg-alternative.webp')] bg-cover bg-center bg-no-repeat"
   >
@@ -47,7 +73,7 @@ import { socialMedia } from '@/data/socials';
             src={Avatar}
             width={430}
             height={430}
-            alt="Az1nDev"
+            alt="Portrait of Camilo Rodelo (Az1nDev)"
             class="avatar h-full w-full object-cover object-top transition-all duration-300 ease-in-out group-hover:opacity-0 lg:h-[130%]"
             loading="eager"
           />
@@ -55,7 +81,7 @@ import { socialMedia } from '@/data/socials';
             src={Profile}
             width={200}
             height={200}
-            alt="Az1nDev"
+            alt=""
             class="profile absolute inset-0 h-full w-full object-cover object-top opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100"
             loading="eager"
           />
@@ -73,37 +99,70 @@ import { socialMedia } from '@/data/socials';
 
       <about-component class="flex min-h-0 flex-1 flex-col">
         <div class="font-primary flex items-center gap-x-1.5">
-          <button
-            class="leftNav text-primary hidden justify-center rounded-md border-2 border-black bg-[#e0e0e0] px-3 py-2 lg:flex"
-            >Q</button
+          <kbd
+            aria-hidden="true"
+            class="leftNav text-primary hidden justify-center rounded-md border-2 border-black bg-[#e0e0e0] px-3 py-2 not-italic lg:flex"
+            >Q</kbd
           >
 
-          <nav class="relative z-10 flex-1 md:top-2.5">
-            <ul class="about-options flex w-full gap-x-1.5 px-2.5">
+          <div class="relative z-10 flex-1 md:top-2.5">
+            <ul
+              class="about-options flex w-full gap-x-1.5 px-2.5"
+              role="tablist"
+              aria-label="About sections"
+            >
               <li
                 data-option="0"
+                role="presentation"
                 class="selected-option border-secondary font-primary flex-1 cursor-pointer rounded-tl-[10px] rounded-tr-[10px] border-4 text-[10px]"
               >
-                <button class="uppercase">Skills</button>
+                <button
+                  id="tab-0"
+                  type="button"
+                  role="tab"
+                  aria-selected="true"
+                  aria-controls="panel-0"
+                  class="uppercase"
+                  >Skills</button
+                >
               </li>
               <li
                 data-option="1"
+                role="presentation"
                 class="border-secondary font-primary flex-1 cursor-pointer rounded-tl-[10px] rounded-tr-[10px] border-4 text-[10px]"
               >
-                <button class="uppercase">Featured</button>
+                <button
+                  id="tab-1"
+                  type="button"
+                  role="tab"
+                  aria-selected="false"
+                  aria-controls="panel-1"
+                  class="uppercase"
+                  >Featured</button
+                >
               </li>
               <li
                 data-option="2"
+                role="presentation"
                 class="border-secondary font-primary flex-1 cursor-pointer rounded-tl-[10px] rounded-tr-[10px] border-4 text-[10px]"
               >
-                <button class="uppercase">About</button>
+                <button
+                  id="tab-2"
+                  type="button"
+                  role="tab"
+                  aria-selected="false"
+                  aria-controls="panel-2"
+                  class="uppercase"
+                  >About</button
+                >
               </li>
             </ul>
-          </nav>
+          </div>
 
-          <button
-            class="rightNav text-primary hidden justify-center rounded-md border-2 border-black bg-[#e0e0e0] px-3 py-2 lg:flex"
-            >E</button
+          <kbd
+            aria-hidden="true"
+            class="rightNav text-primary hidden justify-center rounded-md border-2 border-black bg-[#e0e0e0] px-3 py-2 not-italic lg:flex"
+            >E</kbd
           >
         </div>
 
@@ -111,10 +170,12 @@ import { socialMedia } from '@/data/socials';
           class="border-secondary relative max-h-[60dvh] min-h-0 flex-1 items-center justify-center overflow-y-auto rounded-md border-4 bg-[#f1d8bf] p-4 md:p-8 lg:flex lg:max-h-none"
         >
           <span
+            aria-hidden="true"
             class="font-primary pointer-events-none absolute top-1.5 left-1.5 text-[10px] opacity-40 lg:top-3 lg:right-3 lg:text-[20px]"
             >✦</span
           >
           <span
+            aria-hidden="true"
             class="font-primary pointer-events-none absolute top-1.5 right-1.5 text-[10px] opacity-40 lg:top-3 lg:right-3 lg:text-[20px]"
             >✦</span
           >
@@ -125,10 +186,12 @@ import { socialMedia } from '@/data/socials';
             class="mt-2 flex justify-between lg:absolute lg:right-1.5 lg:bottom-1.5 lg:left-1.5"
           >
             <span
+              aria-hidden="true"
               class="font-primary pointer-events-none text-[10px] opacity-40 lg:text-[20px]"
               >✦</span
             >
             <span
+              aria-hidden="true"
               class="font-primary pointer-events-none text-[10px] opacity-40 lg:text-[20px]"
               >✦</span
             >

@@ -2,13 +2,32 @@
 import Layout from '@/layouts/Layout.astro';
 import ProjectsCards from '@/components/ProjectsCard.astro';
 import MuteButton from '@/components/MuteButton.astro';
+import { projects } from '@/data/projects';
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Projects by Camilo Rodelo',
+  itemListElement: projects.map((project, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: project.title,
+    description: project.description,
+    url: project.link,
+  })),
+};
 ---
 
 <Layout
-  title="Projects - Az1nDev"
-  description="Explore projects and work done by Az1nDev. Web applications, interactive sites and innovative frontend solutions."
+  title="Projects — Camilo Rodelo | Frontend Developer Portfolio"
+  description="Frontend work by Camilo Rodelo (Az1nDev): Shopify storefronts, Astro and Next.js sites, custom Liquid sections and Cloudflare Workers APIs for real clients."
   hideHeader={true}
 >
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(itemListSchema)}
+    slot="head"
+  />
   <div
     class="flex h-[100dvh] flex-col items-center bg-[url('../assets/images/bg-alternative.webp')] bg-cover bg-center bg-no-repeat lg:h-auto lg:min-h-[100dvh]"
   >

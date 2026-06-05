@@ -3,9 +3,11 @@
 ---
 
 <button
-  class="cursor-pointer border-2 border-white p-0.5 shadow-[inset_2px_2px_4px_rgba(0,0,0,0.3)] focus-visible:outline-none"
+  class="cursor-pointer border-2 border-white p-0.5 shadow-[inset_2px_2px_4px_rgba(0,0,0,0.3)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
   id="mute"
   data-muted="false"
+  aria-label="Mute sounds"
+  aria-pressed="false"
 >
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -13,6 +15,7 @@
     width="25"
     height="22"
     fill="none"
+    aria-hidden="true"
     ><path
       stroke="#fff"
       d="M7.5 12.5V6m0 6.5v.5m0-.5h-3m0 0H4m.5 0v2m0 0v.5m0-.5h-2m-.5 0h.5m0 0v2m0 .5v-.5m0 0h2m.5 0h-.5m0 0v2m0 .5v-.5m0 0h3m.5 0h-.5m0 0v-2m0 0V16m0 .5h2m.5 0h-.5m0 0V6M17.5 12.5V6m0 6.5v.5m0-.5h-3m0 0H14m.5 0v2m0 0v.5m0-.5h-2m-.5 0h.5m0 0v2m0 .5v-.5m0 0h2m.5 0h-.5m0 0v2m0 .5v-.5m0 0h3m.5 0h-.5m0 0v-2m0 0V16m0 .5h2m.5 0h-.5m0 0V6M10 6.5h7M7.5 6V2h12m.5 0h-.5m0 0v4"

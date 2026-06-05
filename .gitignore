@@ -4,6 +4,9 @@ dist/
 # generated types
 .astro/
 
+#IA
+claude/
+
 # dependencies
 node_modules/
 

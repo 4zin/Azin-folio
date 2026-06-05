@@ -3,7 +3,14 @@ import { aboutSmallDetails } from '@/data/projects';
 import { Image } from 'astro:assets';
 ---
 
-<div data-content="1" class="hidden grid-cols-1 gap-6 md:grid-cols-2">
+<div
+  data-content="1"
+  id="panel-1"
+  role="tabpanel"
+  aria-labelledby="tab-1"
+  tabindex="0"
+  class="hidden grid-cols-1 gap-6 md:grid-cols-2"
+>
   {
     aboutSmallDetails.map((project, index) => (
       <div

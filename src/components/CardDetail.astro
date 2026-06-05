@@ -11,6 +11,7 @@ const { project } = Astro.props;
 
 <dialog
   id={`dialog-${project.id}`}
+  aria-labelledby={`dialog-title-${project.id}`}
   class="card-detail bg-tertiary border-secondary flex w-[90%] max-w-2xl flex-col items-center gap-6 overflow-visible rounded-[10px] border-4 p-6 lg:items-start"
 >
   <button
@@ -31,7 +32,10 @@ const { project } = Astro.props;
       class="h-full max-h-[100px] w-full max-w-[140px] object-contain"
       loading={'eager'}
     />
-    <h3 class="font-primary text-text text-[12px] lg:text-[13px]">
+    <h3
+      id={`dialog-title-${project.id}`}
+      class="font-primary text-text text-[12px] lg:text-[13px]"
+    >
       {project.title}
     </h3>
   </div>

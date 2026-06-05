@@ -48,7 +48,7 @@ import CardDetail from '@/components/CardDetail.astro';
         <button
           commandfor={`dialog-${project.id}`}
           command="show-modal"
-          aria-label="View details"
+          aria-label={`View details for ${project.title}`}
           class="bg-secondary border-text absolute right-0 bottom-0 cursor-pointer border border-r-0 border-b-0"
         >
           <svg
@@ -56,6 +56,7 @@ import CardDetail from '@/components/CardDetail.astro';
             width="30"
             height="30"
             viewBox="0 0 24 24"
+            aria-hidden="true"
             class="transition-all duration-200 ease-in-out group-hover:scale-[1.15]"
           >
             <path

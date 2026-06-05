@@ -31,3 +31,44 @@ body {
   animation-duration: 0.45s;
   animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
 }
+
+/* Keep main focusable (skip link target) without showing an outline on it */
+main:focus {
+  outline: none;
+}
+
+/* Skip link — visually hidden until focused by keyboard (WCAG 2.4.1) */
+.skip-link {
+  position: absolute;
+  top: -200%;
+  left: 0.5rem;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  background: var(--color-text);
+  color: var(--color-tertiary);
+  font-family: var(--font-primary);
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+.skip-link:focus {
+  top: 0.5rem;
+}
+
+/* Respect users who prefer reduced motion (WCAG 2.3.3) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

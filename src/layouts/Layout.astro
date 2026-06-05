@@ -7,15 +7,20 @@ interface Props {
   title: string;
   description?: string;
   hideHeader?: boolean;
+  ogImage?: string;
+  noIndex?: boolean;
 }
+
+const siteUrl = 'https://azindev.vercel.app';
 
 const {
   title,
   description = 'Portfolio of Camilo Rodelo (Az1nDev) - Frontend Developer specialized in React, TypeScript, Astro and modern web development.',
   hideHeader = false,
+  ogImage = `${siteUrl}/og-default.png`,
+  noIndex = false,
 } = Astro.props;
 
-const siteUrl = 'https://azindev.vercel.app';
 const canonicalURL = new URL(Astro.url.pathname, siteUrl);
 ---
 
@@ -26,34 +31,48 @@ const canonicalURL = new URL(Astro.url.pathname, siteUrl);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="author" content="Camilo Rodelo (Az1nDev)" />
-    <meta
-      name="keywords"
-      content="frontend developer, desarrollador frontend, React, TypeScript, JavaScript, Astro, portfolio, Camilo Rodelo, Az1nDev"
-    />
     <meta name="generator" content={Astro.generator} />
+    {
+      noIndex ? (
+        <meta name="robots" content="noindex, nofollow" />
+      ) : (
+        <meta name="robots" content="index, follow" />
+      )
+    }
 
     <link rel="canonical" href={canonicalURL} />
 
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content="Az1nDev Portfolio" />
     <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
+    <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content={canonicalURL} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
 
     <link rel="icon" type="image/ico" href="/folio-favicon.ico" />
 
     <title>{title}</title>
+
+    <!-- Slot for page-specific schema or extra head tags -->
+    <slot name="head" />
+
     <ClientRouter />
   </head>
   <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
     {!hideHeader && <Header />}
-    <main class:list={[{ 'pt-[73px]': !hideHeader }]}>
+    <main id="main-content" class:list={[{ 'pt-[73px]': !hideHeader }]}>
       <slot />
     </main>
   </body>
