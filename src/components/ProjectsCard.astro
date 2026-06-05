@@ -14,7 +14,10 @@ import CardDetail from '@/components/CardDetail.astro';
         data-card={`card-${project.id}`}
         class="project-card group relative flex cursor-pointer flex-col gap-y-6 p-5"
       >
-        <span class="card-scan pointer-events-none absolute inset-0 rounded-[5px]" aria-hidden="true" />
+        <span
+          class="card-scan pointer-events-none absolute inset-0 rounded-[5px]"
+          aria-hidden="true"
+        />
         <div class="relative flex items-center justify-evenly gap-3">
           <Image
             src={project.projectLogo}
@@ -128,7 +131,11 @@ import CardDetail from '@/components/CardDetail.astro';
   }
 
   .open-btn {
-    background: linear-gradient(180deg, var(--color-primary), var(--color-secondary));
+    background: linear-gradient(
+      180deg,
+      var(--color-primary),
+      var(--color-secondary)
+    );
     border: 2px solid var(--color-ink);
     border-right: none;
     border-bottom: none;
@@ -146,8 +153,6 @@ import CardDetail from '@/components/CardDetail.astro';
 <script>
   // Explicit open/close — no reliance on the (still unevenly supported)
   // command/commandfor Invoker API, so the same flow works in every browser.
-  const cards = document.querySelectorAll<HTMLElement>('[data-card]');
-
   const getDialog = (id: string) =>
     document.getElementById(`dialog-${id}`) as HTMLDialogElement | null;
 
@@ -160,6 +165,7 @@ import CardDetail from '@/components/CardDetail.astro';
     window.history.pushState(null, '', `#${id}`);
   }
 
+  // Open the modal that matches the current URL hash (e.g. /projects#vionic).
   function openModalFromHash() {
     const id = window.location.hash.replace('#', '');
     if (!id) return;
@@ -167,44 +173,53 @@ import CardDetail from '@/components/CardDetail.astro';
     if (dialog && !dialog.open) dialog.showModal();
   }
 
-  openModalFromHash();
+  function bindInteractions() {
+    document.querySelectorAll<HTMLElement>('[data-card]').forEach((card) => {
+      if (card.dataset.bound) return;
+      card.dataset.bound = '1';
+      card.addEventListener('click', () => openDialog(card.id));
+    });
+
+    document
+      .querySelectorAll<HTMLDialogElement>('.card-detail')
+      .forEach((dialog) => {
+        if (dialog.dataset.bound) return;
+        dialog.dataset.bound = '1';
+
+        dialog.addEventListener('click', (event) => {
+          const target = event.target as HTMLElement;
+
+          if (target.closest('[data-close]')) {
+            dialog.close();
+            return;
+          }
+
+          const rect = dialog.getBoundingClientRect();
+          const clickedInside =
+            event.clientX >= rect.left &&
+            event.clientX <= rect.right &&
+            event.clientY >= rect.top &&
+            event.clientY <= rect.bottom;
+
+          if (!clickedInside) dialog.close();
+        });
+
+        dialog.addEventListener('close', () => {
+          window.history.pushState(
+            null,
+            '',
+            window.location.pathname + window.location.search
+          );
+        });
+      });
+  }
+
+  function setup() {
+    bindInteractions();
+    openModalFromHash();
+  }
+
   window.addEventListener('hashchange', openModalFromHash);
-
-  // Clicking anywhere on a card (including the "+" button, which bubbles here)
-  // opens that project's modal.
-  cards.forEach((card) => {
-    card.addEventListener('click', () => openDialog(card.id));
-  });
-
-  const dialogs = document.querySelectorAll<HTMLDialogElement>('.card-detail');
-
-  dialogs.forEach((dialog) => {
-    dialog.addEventListener('click', (event) => {
-      const target = event.target as HTMLElement;
-
-      // Close button (rendered visually outside the box).
-      if (target.closest('[data-close]')) {
-        dialog.close();
-        return;
-      }
-
-      // Click on the dimmed backdrop (outside the dialog box) closes it.
-      const rect = dialog.getBoundingClientRect();
-      const clickedInside =
-        event.clientX >= rect.left &&
-        event.clientX <= rect.right &&
-        event.clientY >= rect.top &&
-        event.clientY <= rect.bottom;
-
-      if (!clickedInside) dialog.close();
-    });
-
-    dialog.addEventListener('close', () => {
-      window.history.pushState(
-        null,
-        '',
-        window.location.pathname + window.location.search,
-      );
-    });
-  });
+  document.addEventListener('astro:page-load', setup);
+  setup();
 </script>

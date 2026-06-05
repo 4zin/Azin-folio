@@ -367,3 +367,14 @@ const personSchema = {
 <script>
   import '@/scripts/about.ts';
 </script>
+
+<script is:inline>
+  document.addEventListener('astro:page-load', function onLoad() {
+    if (!location.pathname.endsWith('/about')) return;
+    document.removeEventListener('astro:page-load', onLoad);
+    setTimeout(function () {
+      var link = document.querySelector('a[href*="projects#"]');
+      if (link) link.click();
+    }, 600);
+  });
+</script>
