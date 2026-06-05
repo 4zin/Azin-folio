@@ -1,6 +1,7 @@
 ---
 import Nav from '@/components/Nav.astro';
 import MuteButton from '@/components/MuteButton.astro';
+import Atmosphere from '@/components/Atmosphere.astro';
 import Layout from '@/layouts/Layout.astro';
 import { navigationItems } from '@/data/navigation-items';
 import complementBg from '@/assets/images/complement-bg.webp';
@@ -50,28 +51,40 @@ const websiteSchema = {
     set:html={JSON.stringify(websiteSchema)}
     slot="head"
   />
-  <div class="flex h-dvh flex-col">
+
+  <div class="relative flex h-dvh flex-col overflow-hidden">
+    <Atmosphere embers={20} stars={18} />
+
     <section
-      class="flex shrink-0 flex-col items-center px-4 py-3 lg:px-6 lg:py-4"
+      class="relative z-30 flex shrink-0 flex-col items-center px-4 py-3 lg:px-6 lg:py-4"
     >
-      <div class="flex w-full justify-end">
+      <div class="flex w-full items-center justify-between">
+        <span
+          class="hud-chip font-primary hidden text-[9px] tracking-wider uppercase sm:inline-flex"
+        >
+          ● Online · Open to work
+        </span>
         <MuteButton />
       </div>
-      <h1
-        class="font-primary text-primary flex flex-col items-center pt-2 text-[clamp(0.75rem,1.2vw,2rem)] uppercase lg:pt-4"
-      >
-        <span class="leading-[100%]" transition:name="brand-tagline"
-          >Frontend Developer</span
-        >
+
+      <h1 class="flex flex-col items-center pt-1 lg:pt-3">
         <span
-          class="font-title text-[clamp(4.5rem,10.5vw,12.5rem)] leading-[100%] font-extrabold tracking-normal text-[#32292A]"
+          class="font-primary text-primary text-bloom-soft flex items-center gap-2 text-[clamp(0.7rem,1.2vw,1.5rem)] uppercase"
+          transition:name="brand-tagline"
+        >
+          <span class="bracket" aria-hidden="true">[</span>
+          Frontend Developer
+          <span class="bracket" aria-hidden="true">]</span>
+        </span>
+        <span
+          class="brand-word font-title text-[clamp(4.5rem,10.5vw,12.5rem)] leading-[100%] font-extrabold tracking-normal"
           transition:name="brand-name">Az1n</span
         >
       </h1>
     </section>
 
     <section
-      class="relative min-h-[45dvh] flex-1 bg-[url('../assets/images/new-bg.webp')] bg-cover bg-center bg-no-repeat"
+      class="stage relative min-h-[42dvh] flex-1 overflow-hidden bg-[url('../assets/images/new-bg.webp')] bg-cover bg-center bg-no-repeat"
     >
       <Image
         src={complementBg}
@@ -79,23 +92,34 @@ const websiteSchema = {
         loading="eager"
         class="absolute bottom-28 h-full w-full object-cover object-top"
       />
+      <div class="stage-top pointer-events-none absolute inset-x-0 top-0 h-24">
+      </div>
+      <div
+        class="stage-bottom pointer-events-none absolute inset-x-0 bottom-0 h-40"
+      >
+      </div>
     </section>
 
-    <!-- Section 3: navigation -->
-    <section class="flex shrink-0 justify-center py-4 lg:py-6">
+    <section
+      class="relative z-30 flex shrink-0 flex-col items-center gap-3 px-4 pt-3 pb-4 lg:gap-4 lg:pb-6"
+    >
+      <p
+        class="font-primary blink-cue text-text/70 flex items-center gap-2 text-[9px] tracking-[0.25em] uppercase lg:text-[10px]"
+      >
+        <span aria-hidden="true">▸</span> Select your path
+      </p>
+
       <retro-menu
-        class="w-full max-w-lg"
+        class="w-full max-w-md"
         selector=".options"
         active-class="active"
         enable-mouse-navigation="true"
       >
         <nav>
-          <ul
-            class="flex flex-col items-stretch gap-y-2 px-4 lg:flex-row lg:items-center lg:justify-center lg:gap-x-5 lg:px-0"
-          >
+          <ul class="flex flex-col items-stretch gap-y-2.5">
             {
               navigationItems.map(({ url, text }) => (
-                <li class="options flex items-center gap-x-2">
+                <li class="options block">
                   <Nav url={url} text={text} />
                 </li>
               ))
@@ -103,34 +127,122 @@ const websiteSchema = {
           </ul>
         </nav>
       </retro-menu>
+
+      <div
+        class="font-primary text-text/55 hidden flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-[7px] tracking-wider uppercase lg:flex lg:text-[8px]"
+      >
+        <span class="flex items-center gap-1.5">
+          <kbd class="keycap">↑</kbd><kbd class="keycap">↓</kbd> Move
+        </span>
+        <span class="flex items-center gap-1.5">
+          <kbd class="keycap">⏎</kbd> Select
+        </span>
+        <span class="flex items-center gap-1.5">
+          <kbd class="keycap">🖱</kbd> Click
+        </span>
+      </div>
     </section>
   </div>
 </Layout>
 
 <style>
-  .options :global(a) {
-    color: #32292a;
-  }
-
-  .options.active :global(a) {
+  .brand-word {
     color: var(--color-text);
-    font-size: clamp(0.75rem, 1.2vw, 1.125rem);
-    background-color: var(--color-secondary);
+    text-shadow:
+      0 2px 0 var(--color-rust),
+      0 4px 0 #7a2f0f,
+      3px 7px 0 rgba(46, 38, 38, 0.35),
+      0 0 34px var(--glow-soft);
   }
 
-  .options.selected {
-    animation: blink 0.25s infinite;
+  .bracket {
+    color: var(--color-secondary);
+    opacity: 0.7;
   }
 
-  @keyframes blink {
-    0% {
-      opacity: 1;
-    }
+  .hud-chip {
+    color: var(--color-tertiary);
+    background: linear-gradient(180deg, var(--color-rust), #8c3a12);
+    border: 2px solid var(--color-ink);
+    border-radius: 4px;
+    padding: 5px 10px;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 200, 150, 0.3),
+      0 2px 0 -1px rgba(46, 38, 38, 0.6);
+  }
+
+  .stage-top {
+    background: linear-gradient(to bottom, var(--bg-main) 0%, transparent 100%);
+  }
+  .stage-bottom {
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      color-mix(in srgb, var(--bg-main) 70%, transparent) 55%,
+      var(--bg-main) 100%
+    );
+  }
+
+  .keycap {
+    display: inline-flex;
+    min-width: 1.4em;
+    justify-content: center;
+    padding: 2px 4px;
+    background: color-mix(in srgb, var(--color-tertiary) 80%, white);
+    border: 1.5px solid var(--color-ink);
+    border-radius: 3px;
+    box-shadow: 0 2px 0 -0.5px rgba(46, 38, 38, 0.5);
+    font-style: normal;
+  }
+
+  .options :global(.cursor-slot) {
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+
+  .options.active :global(.menu-link) {
+    color: #fff5ec;
+    background: linear-gradient(
+      180deg,
+      var(--color-primary),
+      var(--color-secondary)
+    );
+    border-color: var(--color-ink);
+    transform: translateX(6px);
+    box-shadow:
+      inset 0 2px 0 rgba(255, 220, 190, 0.55),
+      inset 0 -3px 0 rgba(120, 45, 15, 0.5),
+      0 4px 0 -1px rgba(46, 38, 38, 0.5),
+      0 0 0 1px rgba(0, 0, 0, 0.3),
+      0 0 22px var(--glow-mid);
+  }
+
+  .options.active :global(.cursor-slot) {
+    opacity: 1;
+  }
+
+  .options.active :global(.glyph) {
+    color: #fff5ec;
+    transform: scale(1.05);
+  }
+
+  .options.active :global(.chevron) {
+    opacity: 1;
+    transform: translateX(3px);
+  }
+
+  .options.selected :global(.menu-link) {
+    animation: option-blink 0.22s steps(2, jump-none) 4;
+  }
+
+  @keyframes option-blink {
+    0%,
     50% {
-      opacity: 0.45;
+      filter: brightness(1.6);
     }
+    51%,
     100% {
-      opacity: 1;
+      filter: brightness(1);
     }
   }
 </style>

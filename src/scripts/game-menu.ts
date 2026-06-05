@@ -147,12 +147,16 @@ class RetroMenu extends HTMLElement {
 
     switch (key) {
       case 'arrowleft':
+      case 'arrowup':
       case 'a':
+      case 'w':
         event.preventDefault();
         this.moveLeft();
         break;
       case 'arrowright':
+      case 'arrowdown':
       case 'd':
+      case 's':
         event.preventDefault();
         this.moveRight();
         break;

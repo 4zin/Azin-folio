@@ -14,6 +14,18 @@
   --color-tertiary: #f1d8bf;
   --color-text: #32292A;
 
+  /* Extended retro palette for the modern pixel-art layer */
+  --color-ink: #2e2626;
+  --color-rust: #a54517;
+  --color-sand: #dfc4a9;
+  --color-ember: #ffae5c;
+  --color-night: #1a1010;
+
+  /* Glow / bloom tokens */
+  --glow-soft: rgba(250, 96, 18, 0.18);
+  --glow-mid: rgba(250, 96, 18, 0.38);
+  --glow-hot: rgba(255, 174, 92, 0.65);
+
   --breakpoint-3xl: 100rem;
   --breakpoint-4xl: 112.5rem;
 }
@@ -22,6 +34,188 @@ body {
   background-color: var(--bg-main);
   min-height: 100dvh;
   height: 100dvh;
+}
+
+/* ============================================================
+   MODERN PIXEL-ART DESIGN SYSTEM
+   Crisp pixel framing + soft, lit atmosphere (Sea of Stars vibe)
+   ============================================================ */
+
+/* --- Pixel-glass panel: beveled frame, inner accent line, lit drop ---- */
+.pixel-panel {
+  position: relative;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-tertiary) 94%, white),
+      color-mix(in srgb, var(--color-sand) 92%, transparent)
+    );
+  border: 3px solid var(--color-ink);
+  border-radius: 6px;
+  box-shadow:
+    inset 0 0 0 2px color-mix(in srgb, var(--color-primary) 22%, transparent),
+    inset 0 3px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -4px 0 rgba(46, 38, 38, 0.18),
+    0 0 0 1px rgba(0, 0, 0, 0.35),
+    0 7px 0 -2px rgba(46, 38, 38, 0.4),
+    0 14px 30px -8px rgba(26, 16, 16, 0.5),
+    0 0 26px var(--glow-soft);
+}
+
+/* Dark variant — for HUD chips / headers over light panels */
+.pixel-chip {
+  position: relative;
+  background: linear-gradient(180deg, var(--color-rust), #8c3a12);
+  border: 3px solid var(--color-ink);
+  border-radius: 5px;
+  color: var(--color-tertiary);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 200, 150, 0.35),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.3),
+    0 3px 0 -1px rgba(46, 38, 38, 0.6),
+    0 0 16px var(--glow-soft);
+}
+
+/* Bloom for type / emissive elements */
+.text-bloom {
+  text-shadow:
+    0 0 2px color-mix(in srgb, var(--color-primary) 70%, transparent),
+    0 0 16px var(--glow-mid),
+    0 4px 0 rgba(46, 38, 38, 0.25);
+}
+
+.text-bloom-soft {
+  text-shadow:
+    0 0 1px rgba(0, 0, 0, 0.4),
+    0 0 12px var(--glow-soft);
+}
+
+/* Blinking "press start" style cue */
+.blink-cue {
+  animation: blink-cue 1.15s steps(2, jump-none) infinite;
+}
+
+@keyframes blink-cue {
+  0%,
+  60% {
+    opacity: 1;
+  }
+  61%,
+  100% {
+    opacity: 0.15;
+  }
+}
+
+/* ----------------------- Atmosphere layers ---------------------------- */
+.atmos {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 40;
+}
+
+/* Vignette — corners only, keeps center type crisp */
+.atmos-vignette {
+  background: radial-gradient(
+    120% 120% at 50% 42%,
+    transparent 55%,
+    rgba(26, 16, 16, 0.18) 82%,
+    rgba(26, 16, 16, 0.42) 100%
+  );
+  mix-blend-mode: multiply;
+}
+
+/* Scanlines — ultra subtle CRT */
+.atmos-scanlines {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.05) 0px,
+    rgba(0, 0, 0, 0.05) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+}
+
+/* Warm screen bloom from the top — like sunlight on the panel glass */
+.atmos-bloom {
+  background: radial-gradient(
+    90% 60% at 50% -10%,
+    var(--glow-soft),
+    transparent 60%
+  );
+  mix-blend-mode: screen;
+}
+
+/* Drifting embers / dust motes */
+.ember {
+  position: absolute;
+  bottom: -16px;
+  width: 3px;
+  height: 3px;
+  background: var(--color-ember);
+  box-shadow:
+    0 0 6px 1px var(--glow-hot),
+    0 0 2px 0 #fff;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: ember-rise linear infinite;
+}
+
+@keyframes ember-rise {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate3d(var(--drift, 14px), -52vh, 0) scale(0.85);
+    opacity: 0.7;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate3d(calc(var(--drift, 14px) * -1), -104vh, 0) scale(0.5);
+    opacity: 0;
+  }
+}
+
+/* Twinkling stars (upper region) */
+.twinkle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #fff6e8;
+  box-shadow: 0 0 4px 1px var(--glow-hot);
+  opacity: 0.4;
+  animation: twinkle 3.2s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(0.7);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.15);
+  }
+}
+
+/* Pixel-snappy float used by interactive cues */
+@keyframes pixel-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
 }
 
 /* Brand logo morph between pages (View Transitions).

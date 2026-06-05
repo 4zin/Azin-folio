@@ -12,13 +12,13 @@ const { project } = Astro.props;
 <dialog
   id={`dialog-${project.id}`}
   aria-labelledby={`dialog-title-${project.id}`}
-  class="card-detail bg-tertiary border-secondary flex w-[90%] max-w-2xl flex-col items-center gap-6 overflow-visible rounded-[10px] border-4 p-6 lg:items-start"
+  class="card-detail modal-panel flex w-[90%] max-w-2xl flex-col items-center gap-6 overflow-visible p-6 lg:items-start"
 >
   <button
-    commandfor={`dialog-${project.id}`}
-    command="close"
+    type="button"
+    data-close
     aria-label="Close"
-    class="close-btn border-secondary font-primary text-tertiary absolute top-[-43px] right-4 cursor-pointer rounded-tl-[10px] rounded-tr-[10px] border-4 bg-[#A54517] px-2.5 py-[5px] transition-opacity hover:opacity-100"
+    class="close-btn pixel-chip font-primary absolute top-[-43px] right-4 cursor-pointer rounded-b-none px-3 py-1.5 transition-all hover:brightness-110"
   >
     X
   </button>
@@ -56,13 +56,59 @@ const { project } = Astro.props;
     href={project.link}
     target="_blank"
     rel="noopener noreferrer"
-    class="site-link font-secondary text-primary mt-1 w-fit text-[14px] uppercase underline lg:text-[18px]"
+    class="site-link font-primary text-tertiary mt-1 flex w-fit items-center gap-2 px-4 py-2.5 text-[10px] uppercase lg:text-[11px]"
   >
-    View Page
+    <span class="arrow" aria-hidden="true">▶</span> View Page
   </a>
 </dialog>
 
 <style>
+  .modal-panel {
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-tertiary) 96%, white),
+      var(--color-sand)
+    );
+    border: 3px solid var(--color-ink);
+    border-radius: 8px;
+    box-shadow:
+      inset 0 0 0 2px color-mix(in srgb, var(--color-primary) 22%, transparent),
+      inset 0 3px 0 rgba(255, 255, 255, 0.45),
+      0 0 0 1px rgba(0, 0, 0, 0.4),
+      0 18px 50px -10px rgba(26, 16, 16, 0.7),
+      0 0 40px var(--glow-mid);
+  }
+
+  .site-link {
+    background: linear-gradient(
+      180deg,
+      var(--color-primary),
+      var(--color-secondary)
+    );
+    border: 3px solid var(--color-ink);
+    border-radius: 6px;
+    box-shadow:
+      inset 0 2px 0 rgba(255, 220, 190, 0.45),
+      0 3px 0 -1px rgba(46, 38, 38, 0.5),
+      0 0 16px var(--glow-soft);
+    transition:
+      transform 0.15s steps(2, end),
+      box-shadow 0.2s ease;
+  }
+  .site-link:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      inset 0 2px 0 rgba(255, 220, 190, 0.55),
+      0 4px 0 -1px rgba(46, 38, 38, 0.5),
+      0 0 22px var(--glow-mid);
+  }
+  .site-link .arrow {
+    transition: transform 0.2s steps(2, end);
+  }
+  .site-link:hover .arrow {
+    transform: translateX(3px);
+  }
+
   .card-detail[open] {
     scale: 1;
     transition: scale 0.3s ease;

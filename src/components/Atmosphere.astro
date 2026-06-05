@@ -1,0 +1,72 @@
+---
+/**
+ * Atmosphere — modern pixel-art ambience layer.
+ * Drifting embers + twinkling stars + warm bloom + corner vignette + subtle
+ * scanlines. Purely decorative (aria-hidden, pointer-events:none) and sits
+ * above the background art but below interactive content.
+ *
+ * Props:
+ *  - embers:  number of rising ember/dust motes (default 18)
+ *  - stars:   number of twinkling stars in the upper region (default 14)
+ *  - scanlines / vignette: toggles for the CRT-ish overlays
+ */
+interface Props {
+  embers?: number;
+  stars?: number;
+  scanlines?: boolean;
+  vignette?: boolean;
+}
+
+const {
+  embers = 18,
+  stars = 14,
+  scanlines = true,
+  vignette = true,
+} = Astro.props;
+
+// Deterministic pseudo-random so SSR + hydration stay in sync.
+const rand = (seed: number) => {
+  const x = Math.sin(seed * 99.13) * 43758.5453;
+  return x - Math.floor(x);
+};
+
+const emberList = Array.from({ length: embers }, (_, i) => ({
+  left: (rand(i + 1) * 100).toFixed(2),
+  delay: (rand(i + 7) * 9).toFixed(2),
+  duration: (8 + rand(i + 3) * 9).toFixed(2),
+  drift: (rand(i + 5) * 40 - 20).toFixed(1),
+  size: rand(i + 11) > 0.78 ? 4 : rand(i + 11) > 0.4 ? 3 : 2,
+}));
+
+const starList = Array.from({ length: stars }, (_, i) => ({
+  left: (rand(i + 21) * 100).toFixed(2),
+  top: (rand(i + 31) * 38).toFixed(2),
+  delay: (rand(i + 41) * 3.2).toFixed(2),
+  duration: (2.4 + rand(i + 51) * 2.6).toFixed(2),
+}));
+---
+
+<div class="atmos" aria-hidden="true">
+  {vignette && <div class="absolute inset-0 atmos-bloom"></div>}
+
+  {
+    starList.map((s) => (
+      <span
+        class="twinkle"
+        style={`left:${s.left}%;top:${s.top}%;animation-delay:${s.delay}s;animation-duration:${s.duration}s`}
+      />
+    ))
+  }
+
+  {
+    emberList.map((e) => (
+      <span
+        class="ember"
+        style={`left:${e.left}%;width:${e.size}px;height:${e.size}px;--drift:${e.drift}px;animation-delay:${e.delay}s;animation-duration:${e.duration}s`}
+      />
+    ))
+  }
+
+  {vignette && <div class="absolute inset-0 atmos-vignette"></div>}
+  {scanlines && <div class="absolute inset-0 atmos-scanlines"></div>}
+</div>

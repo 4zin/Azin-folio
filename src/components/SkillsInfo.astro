@@ -39,13 +39,47 @@ const skills: Skill[] = [
   tabindex="0"
   class="active grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5 lg:gap-5"
 >
+  <style>
+    .skill-tile {
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.4),
+        rgba(223, 196, 169, 0.35)
+      );
+      border: 2px solid color-mix(in srgb, var(--color-ink) 70%, transparent);
+      border-radius: 6px;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
+        0 2px 0 -1px rgba(46, 38, 38, 0.3);
+      transition:
+        transform 0.18s steps(3, end),
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+    }
+
+    .skill-tile:hover {
+      transform: translateY(-3px);
+      border-color: var(--color-primary);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.6),
+        0 4px 0 -1px rgba(46, 38, 38, 0.35),
+        0 0 18px var(--glow-mid);
+    }
+
+    .skill-icon {
+      transition: transform 0.2s steps(3, end);
+    }
+    .skill-tile:hover .skill-icon {
+      transform: scale(1.12);
+    }
+  </style>
   {
     skills.map((skill) => (
-      <div class="border-text/60 flex flex-col items-center justify-center gap-y-6 border bg-white/20 p-3 backdrop-blur-sm lg:aspect-square lg:p-5">
+      <div class="skill-tile group flex flex-col items-center justify-center gap-y-4 p-3 lg:aspect-square lg:gap-y-6 lg:p-5">
         <Image
           src={skill.icon}
           alt={skill.name}
-          class="3xl:h-[50%] 3xl:w-[50%] h-12 w-12 object-contain lg:h-11/12 lg:w-11/12"
+          class="skill-icon 3xl:h-[50%] 3xl:w-[50%] h-12 w-12 object-contain lg:h-11/12 lg:w-11/12"
           loading={'eager'}
         />
         <span class="font-primary text-text 3xl:text-[14px] text-center text-[7px] leading-tight">

@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import Layout from '@/layouts/Layout.astro';
 import MuteButton from '@/components/MuteButton.astro';
+import Atmosphere from '@/components/Atmosphere.astro';
 import Socials from '@/components/Socials.astro';
 import AboutInfo from '@/components/AboutInfo.astro';
 import FeaturedInfo from '@/components/FeaturedInfo.astro';
@@ -44,16 +45,22 @@ const personSchema = {
     slot="head"
   />
   <div
-    class="min-h-[100dvh] bg-[url('../assets/images/bg-alternative.webp')] bg-cover bg-center bg-no-repeat"
+    class="relative min-h-[100dvh] overflow-hidden bg-[url('../assets/images/bg-alternative.webp')] bg-cover bg-center bg-no-repeat"
   >
-    <section class="flex items-center justify-between px-4 pt-4">
-      <a href="/" class="flex flex-col items-center">
+    <Atmosphere embers={16} stars={16} />
+
+    <section class="relative z-30 flex items-center justify-between px-4 pt-4">
+      <a href="/" class="group flex flex-col items-start">
         <span
-          class="font-primary text-tertiary text-[10px] leading-none font-extrabold uppercase lg:text-[14px]"
-          transition:name="brand-tagline">Frontend Developer</span
+          class="font-primary text-secondary text-bloom-soft flex items-center gap-1.5 text-[10px] leading-none font-extrabold uppercase lg:text-[13px]"
+          transition:name="brand-tagline"
+          ><span
+            class="back-arrow inline-block transition-transform group-hover:-translate-x-1"
+            aria-hidden="true">◄</span
+          > Frontend Developer</span
         >
         <span
-          class="font-title text-tertiary text-[clamp(3rem,12vw,5rem)] leading-none font-extrabold uppercase"
+          class="brand-word font-title text-tertiary text-[clamp(3rem,12vw,5rem)] leading-none font-extrabold uppercase"
           transition:name="brand-name">Az1n</span
         >
       </a>
@@ -61,13 +68,13 @@ const personSchema = {
     </section>
 
     <section
-      class="3xl:h-[65dvh] flex flex-col px-4 pt-4 pb-4 lg:mx-auto lg:mt-40 lg:h-[70dvh] lg:w-full lg:max-w-[80%] lg:flex-row lg:items-stretch lg:gap-x-4 lg:pt-0"
+      class="3xl:h-[65dvh] relative z-20 flex flex-col px-4 pt-4 pb-4 lg:mx-auto lg:mt-32 lg:h-[70dvh] lg:w-full lg:max-w-[80%] lg:flex-row lg:items-stretch lg:gap-x-5 lg:pt-0"
     >
       <div
-        class="profile-card bg-tertiary relative top-[50px] flex h-full min-h-[200px] gap-y-10 rounded-md px-3 pt-3 lg:top-0 lg:w-[280px] lg:shrink-0 lg:flex-col lg:items-center lg:px-6 lg:pt-8"
+        class="profile-card pixel-panel relative top-[50px] flex h-full min-h-[200px] gap-y-10 px-3 pt-3 lg:top-0 lg:w-[290px] lg:shrink-0 lg:flex-col lg:items-center lg:px-6 lg:pt-8"
       >
         <profile-image
-          class="group border-secondary relative h-[136px] w-[136px] shrink-0 cursor-pointer overflow-hidden rounded-[10px] border-4 lg:h-[50%] lg:w-full"
+          class="avatar-frame group relative h-[136px] w-[136px] shrink-0 cursor-pointer overflow-hidden lg:h-[52%] lg:w-full"
         >
           <Image
             src={Avatar}
@@ -85,10 +92,14 @@ const personSchema = {
             class="profile absolute inset-0 h-full w-full object-cover object-top opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100"
             loading="eager"
           />
+          <span class="avatar-scan pointer-events-none absolute inset-0"></span>
         </profile-image>
-        <div
-          class="flex w-full flex-col justify-start gap-y-2.5 rounded-[10px] border-[#32292A] px-3 py-3.5 lg:border"
-        >
+
+        <div class="flex w-full flex-col gap-y-1">
+          <span
+            class="font-primary text-text/50 mb-1 hidden text-[8px] tracking-[0.2em] uppercase lg:block"
+            >// Links</span
+          >
           {
             socialMedia.map((item) => (
               <Socials name={item.name} url={item.url} icon={item.icon} />
@@ -101,7 +112,7 @@ const personSchema = {
         <div class="font-primary flex items-center gap-x-1.5">
           <kbd
             aria-hidden="true"
-            class="leftNav text-primary hidden justify-center rounded-md border-2 border-black bg-[#e0e0e0] px-3 py-2 not-italic lg:flex"
+            class="keycap leftNav text-primary hidden justify-center px-3 py-2 not-italic lg:flex"
             >Q</kbd
           >
 
@@ -114,7 +125,7 @@ const personSchema = {
               <li
                 data-option="0"
                 role="presentation"
-                class="selected-option border-secondary font-primary flex-1 cursor-pointer rounded-tl-[10px] rounded-tr-[10px] border-4 text-[10px]"
+                class="selected-option font-primary flex-1 cursor-pointer text-[7px] sm:text-[9px] lg:text-[10px]"
               >
                 <button
                   id="tab-0"
@@ -122,14 +133,13 @@ const personSchema = {
                   role="tab"
                   aria-selected="true"
                   aria-controls="panel-0"
-                  class="uppercase"
-                  >Skills</button
+                  class="uppercase">Skills</button
                 >
               </li>
               <li
                 data-option="1"
                 role="presentation"
-                class="border-secondary font-primary flex-1 cursor-pointer rounded-tl-[10px] rounded-tr-[10px] border-4 text-[10px]"
+                class="font-primary flex-1 cursor-pointer text-[7px] sm:text-[9px] lg:text-[10px]"
               >
                 <button
                   id="tab-1"
@@ -137,14 +147,13 @@ const personSchema = {
                   role="tab"
                   aria-selected="false"
                   aria-controls="panel-1"
-                  class="uppercase"
-                  >Featured</button
+                  class="uppercase">Featured</button
                 >
               </li>
               <li
                 data-option="2"
                 role="presentation"
-                class="border-secondary font-primary flex-1 cursor-pointer rounded-tl-[10px] rounded-tr-[10px] border-4 text-[10px]"
+                class="font-primary flex-1 cursor-pointer text-[7px] sm:text-[9px] lg:text-[10px]"
               >
                 <button
                   id="tab-2"
@@ -152,8 +161,7 @@ const personSchema = {
                   role="tab"
                   aria-selected="false"
                   aria-controls="panel-2"
-                  class="uppercase"
-                  >About</button
+                  class="uppercase">About</button
                 >
               </li>
             </ul>
@@ -161,38 +169,38 @@ const personSchema = {
 
           <kbd
             aria-hidden="true"
-            class="rightNav text-primary hidden justify-center rounded-md border-2 border-black bg-[#e0e0e0] px-3 py-2 not-italic lg:flex"
+            class="keycap rightNav text-primary hidden justify-center px-3 py-2 not-italic lg:flex"
             >E</kbd
           >
         </div>
 
         <div
-          class="border-secondary relative max-h-[60dvh] min-h-0 flex-1 items-center justify-center overflow-y-auto rounded-md border-4 bg-[#f1d8bf] p-4 md:p-8 lg:flex lg:max-h-none"
+          class="content-panel pixel-panel relative max-h-[60dvh] min-h-0 flex-1 items-center justify-center overflow-y-auto p-4 md:p-8 lg:flex lg:max-h-none"
         >
           <span
             aria-hidden="true"
-            class="font-primary pointer-events-none absolute top-1.5 left-1.5 text-[10px] opacity-40 lg:top-3 lg:right-3 lg:text-[20px]"
+            class="font-primary text-secondary pointer-events-none absolute top-1.5 left-1.5 text-[10px] opacity-50 lg:top-3 lg:left-3 lg:text-[18px]"
             >✦</span
           >
           <span
             aria-hidden="true"
-            class="font-primary pointer-events-none absolute top-1.5 right-1.5 text-[10px] opacity-40 lg:top-3 lg:right-3 lg:text-[20px]"
+            class="font-primary text-secondary pointer-events-none absolute top-1.5 right-1.5 text-[10px] opacity-50 lg:top-3 lg:right-3 lg:text-[18px]"
             >✦</span
           >
           <Skills />
           <FeaturedInfo />
           <AboutInfo />
           <div
-            class="mt-2 flex justify-between lg:absolute lg:right-1.5 lg:bottom-1.5 lg:left-1.5"
+            class="mt-2 flex justify-between lg:absolute lg:right-3 lg:bottom-3 lg:left-3"
           >
             <span
               aria-hidden="true"
-              class="font-primary pointer-events-none text-[10px] opacity-40 lg:text-[20px]"
+              class="font-primary text-secondary pointer-events-none text-[10px] opacity-50 lg:text-[18px]"
               >✦</span
             >
             <span
               aria-hidden="true"
-              class="font-primary pointer-events-none text-[10px] opacity-40 lg:text-[20px]"
+              class="font-primary text-secondary pointer-events-none text-[10px] opacity-50 lg:text-[18px]"
               >✦</span
             >
           </div>
@@ -203,6 +211,24 @@ const personSchema = {
 </Layout>
 
 <style>
+  .brand-word {
+    text-shadow:
+      0 2px 0 var(--color-rust),
+      0 4px 0 #5c2710,
+      0 0 26px rgba(255, 174, 92, 0.4);
+  }
+
+  .keycap {
+    min-width: 1.4em;
+    background: color-mix(in srgb, var(--color-tertiary) 78%, white);
+    border: 2px solid var(--color-ink);
+    border-radius: 4px;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      0 2px 0 -0.5px rgba(46, 38, 38, 0.5);
+    text-shadow: 0 0 8px var(--glow-soft);
+  }
+
   .profile-card::after {
     content: '';
     position: absolute;
@@ -211,6 +237,7 @@ const personSchema = {
     background: #000;
     top: 0;
     left: 0;
+    border-radius: 6px;
     mask-image: linear-gradient(transparent 60%, #0000006e);
     pointer-events: none;
 
@@ -219,63 +246,84 @@ const personSchema = {
     }
   }
 
-  /* Mobile: 3 tabs equally distributed */
-  .about-options[data-selected='0']::before {
-    width: calc(33.33% - 12px);
-    left: 6px;
-  }
-  .about-options[data-selected='1']::before {
-    width: calc(33.33% - 12px);
-    left: calc(33.33% + 6px);
-  }
-  .about-options[data-selected='2']::before {
-    width: calc(33.33% - 12px);
-    left: calc(66.67% + 6px);
+  .avatar-frame {
+    border: 3px solid var(--color-ink);
+    border-radius: 8px;
+    box-shadow:
+      inset 0 0 0 2px
+        color-mix(in srgb, var(--color-secondary) 60%, transparent),
+      0 0 0 1px rgba(0, 0, 0, 0.4),
+      0 0 22px var(--glow-mid);
   }
 
-  @media screen and (min-width: 1024px) {
-    .about-options[data-selected='0']::before {
-      width: calc(100% / 3 - 90px);
-      left: 30px;
-    }
-    .about-options[data-selected='1']::before {
-      width: calc(100% / 3 - 100px);
-      left: calc(100% / 3 + 35px);
-    }
-    .about-options[data-selected='2']::before {
-      width: calc(100% / 3 - 110px);
-      left: calc(100% / 3 * 2 + 60px);
-    }
+  .avatar-scan {
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.12) 0px,
+      rgba(0, 0, 0, 0.12) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    opacity: 0.35;
+    mix-blend-mode: multiply;
   }
 
   .about-options li {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex: 1;
-    background: #a54517;
+    flex: 1 1 0;
+    min-width: 0;
+    background: linear-gradient(180deg, var(--color-rust), #872f0f);
+    border: 3px solid var(--color-ink);
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    box-shadow: inset 0 2px 0 rgba(255, 200, 150, 0.25);
+    transition:
+      transform 0.15s steps(3, end),
+      filter 0.15s ease;
+  }
+
+  .about-options li:hover:not(.selected-option) {
+    filter: brightness(1.12);
+    transform: translateY(-1px);
   }
 
   .about-options li.selected-option {
-    background: var(--color-tertiary);
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-tertiary) 96%, white),
+      var(--color-sand)
+    );
+    box-shadow:
+      inset 0 2px 0 rgba(255, 255, 255, 0.5),
+      0 0 18px var(--glow-mid);
+    transform: translateY(1px);
   }
 
   .about-options li button {
     position: relative;
     transition: color 0.3s ease;
     cursor: pointer;
-    padding: 4px 8px;
+    padding: 8px 4px;
+    width: 100%;
+  }
+
+  @media (min-width: 640px) {
+    .about-options li button {
+      padding: 8px 8px;
+    }
   }
 
   .selected-option button {
-    color: #000;
+    color: var(--color-text);
     font-weight: 600;
+    text-shadow: 0 0 10px var(--glow-soft);
   }
 
   .about-options li:not(.selected-option) button {
-    color: var(--color-text);
-    -webkit-text-stroke: 0.8px #000;
-    -webkit-text-fill-color: var(--color-text);
+    color: var(--color-tertiary);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
   }
 
   @keyframes pop {
@@ -283,7 +331,7 @@ const personSchema = {
       transform: scale(1);
     }
     50% {
-      transform: scale(1.1);
+      transform: scale(1.08);
     }
     100% {
       transform: scale(1);

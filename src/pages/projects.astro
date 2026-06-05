@@ -2,6 +2,7 @@
 import Layout from '@/layouts/Layout.astro';
 import ProjectsCards from '@/components/ProjectsCard.astro';
 import MuteButton from '@/components/MuteButton.astro';
+import Atmosphere from '@/components/Atmosphere.astro';
 import { projects } from '@/data/projects';
 
 const itemListSchema = {
@@ -29,16 +30,24 @@ const itemListSchema = {
     slot="head"
   />
   <div
-    class="flex h-[100dvh] flex-col items-center bg-[url('../assets/images/bg-alternative.webp')] bg-cover bg-center bg-no-repeat lg:h-auto lg:min-h-[100dvh]"
+    class="relative flex h-[100dvh] flex-col items-center overflow-hidden bg-[url('../assets/images/bg-alternative.webp')] bg-cover bg-center bg-no-repeat lg:h-auto lg:min-h-[100dvh]"
   >
-    <section class="flex w-full shrink-0 items-center justify-between px-4 pt-4">
-      <a href="/" class="flex flex-col items-center">
+    <Atmosphere embers={16} stars={16} />
+
+    <section
+      class="relative z-30 flex w-full shrink-0 items-center justify-between px-4 pt-4"
+    >
+      <a href="/" class="group flex flex-col items-start">
         <span
-          class="font-primary text-tertiary text-[10px] leading-none font-extrabold uppercase lg:text-[14px]"
-          transition:name="brand-tagline">Frontend Developer</span
+          class="font-primary text-secondary text-bloom-soft flex items-center gap-1.5 text-[10px] leading-none font-extrabold uppercase lg:text-[13px]"
+          transition:name="brand-tagline"
+          ><span
+            class="inline-block transition-transform group-hover:-translate-x-1"
+            aria-hidden="true">◄</span
+          > Frontend Developer</span
         >
         <span
-          class="font-title text-tertiary text-[clamp(3rem,12vw,5rem)] leading-none font-extrabold uppercase"
+          class="brand-word font-title text-tertiary text-[clamp(3rem,12vw,5rem)] leading-none font-extrabold uppercase"
           transition:name="brand-name">Az1n</span
         >
       </a>
@@ -46,18 +55,35 @@ const itemListSchema = {
       <MuteButton />
     </section>
 
-    <div class="flex min-h-0 w-[90%] flex-1 flex-col pb-4 pt-2 lg:flex-none lg:pb-8">
-      <h1
-        class="font-primary border-secondary text-tertiary ml-5 w-fit rounded border-4 bg-[#A54517] px-4 py-1.5 text-[10px] uppercase lg:text-[12px]"
-      >
-        Projects
-      </h1>
+    <div
+      class="relative z-20 flex min-h-0 w-[92%] flex-1 flex-col pt-3 pb-4 lg:flex-none lg:pb-8"
+    >
+      <div class="mb-[-2px] ml-5 flex items-end gap-3">
+        <h1
+          class="pixel-chip font-primary w-fit px-4 py-2 text-[10px] uppercase lg:text-[12px]"
+        >
+          ▸ Projects
+        </h1>
+        <span
+          class="font-primary text-tertiary/70 hidden pb-1 text-[8px] tracking-[0.2em] uppercase sm:block"
+          >Select a quest</span
+        >
+      </div>
 
       <section
-        class="bg-tertiary border-secondary min-h-0 flex-1 overflow-y-auto rounded-[10px] border-4 lg:flex-none lg:overflow-visible"
+        class="projects-panel pixel-panel min-h-0 flex-1 overflow-y-auto lg:flex-none lg:overflow-visible"
       >
         <ProjectsCards />
       </section>
     </div>
   </div>
 </Layout>
+
+<style>
+  .brand-word {
+    text-shadow:
+      0 2px 0 var(--color-rust),
+      0 4px 0 #5c2710,
+      0 0 26px rgba(255, 174, 92, 0.4);
+  }
+</style>

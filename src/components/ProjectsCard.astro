@@ -12,15 +12,16 @@ import CardDetail from '@/components/CardDetail.astro';
       <div
         id={`${project.id}`}
         data-card={`card-${project.id}`}
-        class="group border-text relative flex cursor-pointer flex-col gap-y-6 border p-5"
+        class="project-card group relative flex cursor-pointer flex-col gap-y-6 p-5"
       >
-        <div class="flex items-center justify-evenly">
+        <span class="card-scan pointer-events-none absolute inset-0 rounded-[5px]" aria-hidden="true" />
+        <div class="relative flex items-center justify-evenly gap-3">
           <Image
             src={project.projectLogo}
             alt={project.title}
             width={200}
             height={200}
-            class="h-[85px] w-[100px] self-center object-contain"
+            class="card-logo h-[85px] w-[100px] self-center object-contain"
             loading={'eager'}
           />
           <h2 class="card-title font-primary text-text text-[11px] lg:text-[12px]">
@@ -46,10 +47,10 @@ import CardDetail from '@/components/CardDetail.astro';
         </div>
 
         <button
-          commandfor={`dialog-${project.id}`}
-          command="show-modal"
+          type="button"
+          data-open
           aria-label={`View details for ${project.title}`}
-          class="bg-secondary border-text absolute right-0 bottom-0 cursor-pointer border border-r-0 border-b-0"
+          class="open-btn absolute right-0 bottom-0 cursor-pointer"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +58,7 @@ import CardDetail from '@/components/CardDetail.astro';
             height="30"
             viewBox="0 0 24 24"
             aria-hidden="true"
-            class="transition-all duration-200 ease-in-out group-hover:scale-[1.15]"
+            class="transition-all duration-200 ease-in-out group-hover:scale-[1.15] group-hover:rotate-90"
           >
             <path
               fill="none"
@@ -76,55 +77,118 @@ import CardDetail from '@/components/CardDetail.astro';
 
 {projects.map((project) => <CardDetail project={project} />)}
 
+<style>
+  .project-card {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.42),
+      rgba(223, 196, 169, 0.34)
+    );
+    border: 2px solid color-mix(in srgb, var(--color-ink) 70%, transparent);
+    border-radius: 7px;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      0 3px 0 -1px rgba(46, 38, 38, 0.3);
+    transition:
+      transform 0.18s steps(3, end),
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-primary);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.6),
+      0 6px 0 -1px rgba(46, 38, 38, 0.35),
+      0 12px 24px -10px rgba(26, 16, 16, 0.5),
+      0 0 26px var(--glow-soft);
+  }
+
+  .card-scan {
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.05) 0px,
+      rgba(0, 0, 0, 0.05) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .project-card:hover .card-scan {
+    opacity: 0.5;
+  }
+
+  .card-logo {
+    transition: transform 0.25s steps(4, end);
+  }
+  .project-card:hover .card-logo {
+    transform: scale(1.06);
+  }
+
+  .open-btn {
+    background: linear-gradient(180deg, var(--color-primary), var(--color-secondary));
+    border: 2px solid var(--color-ink);
+    border-right: none;
+    border-bottom: none;
+    border-top-left-radius: 6px;
+    box-shadow: inset 1px 1px 0 rgba(255, 220, 190, 0.4);
+    transition: box-shadow 0.2s ease;
+  }
+  .project-card:hover .open-btn {
+    box-shadow:
+      inset 1px 1px 0 rgba(255, 220, 190, 0.5),
+      0 0 16px var(--glow-mid);
+  }
+</style>
+
 <script>
-  const clickedCards = document.querySelectorAll('[data-card]');
+  // Explicit open/close — no reliance on the (still unevenly supported)
+  // command/commandfor Invoker API, so the same flow works in every browser.
+  const cards = document.querySelectorAll<HTMLElement>('[data-card]');
+
+  const getDialog = (id: string) =>
+    document.getElementById(`dialog-${id}`) as HTMLDialogElement | null;
+
+  function openDialog(id: string) {
+    const dialog = getDialog(id);
+    if (!dialog || dialog.open) return;
+    // Only one modal at a time.
+    document.querySelector<HTMLDialogElement>('.card-detail[open]')?.close();
+    dialog.showModal();
+    window.history.pushState(null, '', `#${id}`);
+  }
 
   function openModalFromHash() {
-    const hash = window.location.hash;
-
-    if (hash) {
-      const projectId = hash.replace('#', '');
-      const dialog = document.getElementById(
-        `dialog-${projectId}`,
-      ) as HTMLDialogElement;
-
-      if (dialog) {
-        dialog.showModal();
-      }
-    }
+    const id = window.location.hash.replace('#', '');
+    if (!id) return;
+    const dialog = getDialog(id);
+    if (dialog && !dialog.open) dialog.showModal();
   }
 
   openModalFromHash();
-
   window.addEventListener('hashchange', openModalFromHash);
 
-  clickedCards?.forEach((card) => {
-    const showModal = card.querySelector(
-      'button[commandfor]',
-    ) as HTMLButtonElement;
-
-    card.addEventListener('click', (event) => {
-      const target = event.target as HTMLElement;
-      const projectId = card.id;
-
-      if (target && target.tagName !== 'BUTTON') {
-        if (document.querySelector('.card-detail[open]')) return;
-        window.history.pushState(null, '', `#${projectId}`);
-        showModal?.click();
-      }
-    });
+  // Clicking anywhere on a card (including the "+" button, which bubbles here)
+  // opens that project's modal.
+  cards.forEach((card) => {
+    card.addEventListener('click', () => openDialog(card.id));
   });
 
-  const dialogs = document.querySelectorAll(
-    '.card-detail',
-  ) as NodeListOf<HTMLDialogElement>;
+  const dialogs = document.querySelectorAll<HTMLDialogElement>('.card-detail');
 
   dialogs.forEach((dialog) => {
-    // Close when the backdrop (area outside the dialog box) is clicked.
-    // Handling it here — instead of the native `closedby="any"` light dismiss —
-    // keeps the modal up while the event is dispatched, so the click never
-    // falls through to the card underneath and opens another project.
     dialog.addEventListener('click', (event) => {
+      const target = event.target as HTMLElement;
+
+      // Close button (rendered visually outside the box).
+      if (target.closest('[data-close]')) {
+        dialog.close();
+        return;
+      }
+
+      // Click on the dimmed backdrop (outside the dialog box) closes it.
       const rect = dialog.getBoundingClientRect();
       const clickedInside =
         event.clientX >= rect.left &&
